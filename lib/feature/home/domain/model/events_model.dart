@@ -44,7 +44,7 @@ List<EventModel> eventsList = [
   ),
   EventModel(
     imageUrl:
-        "https://images.unsplash.com/photo-1603988363607-e1e4a66962c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fHlvZ2F8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
+        "https://images.unsplash.com/photo-1621352404112-58e2468993a0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjV8fHdvbWVuJTIwZW1wb3dlcm1lbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
     title: "4 Day Women's Self-Care",
     dateTime: DateTime.now().add(const Duration(days: 8)),
     location: "New York",

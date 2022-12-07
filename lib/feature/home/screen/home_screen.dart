@@ -1,16 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:healersandteachers/constant/app_color.dart';
-import 'package:healersandteachers/constant/app_icon.dart';
-import 'package:healersandteachers/constant/app_image.dart';
-import 'package:healersandteachers/feature/home/domain/model/categories_model.dart';
-import 'package:healersandteachers/utils/screen_size.dart';
 
-import '../../../helper/text_over_mage.dart';
 import '../../../helper/text_style.dart';
-import '../domain/model/pracitioners_model.dart';
 import '../domain/model/user_model.dart';
 import '../widgets/categories_list.dart';
 import '../widgets/events_list.dart';
@@ -27,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    print("size.width, size.height: ${size.width * .4}, ${size.height * 0.19}");
+    print("size.width, size.height: ${size.width * .4}, ${size.height * 0.13}");
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -39,12 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     const SizedBox(height: 10),
                     profileTile(size),
-                    const SizedBox(height: 36),
+                    const SizedBox(height: 20),
                     locationTile(size),
                   ],
                 ),
               ),
-              const EventsListTileWidget(),
               const CategoriesListWidget(),
               const NearByPractitionersWidget(),
             ],
@@ -113,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   "👋",
                   style: TextStyle(fontSize: 30),
                 ),
-                // SvgPicture.asset(AppIcon.handWave),
+                // Icon(AppIcon.handWave),
               ],
             ),
           ],

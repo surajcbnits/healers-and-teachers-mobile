@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constant/app_color.dart';
+
 class TextStyleHelper {
   TextStyleHelper._();
 
@@ -8,7 +10,7 @@ class TextStyleHelper {
     return const TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.w700,
-      // color: Colors.black,
+      color: AppColor.darkBlue,
     );
   }
 
@@ -17,7 +19,7 @@ class TextStyleHelper {
     return const TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w700,
-      // color: Colors.black,
+      color: AppColor.darkBlue,
     );
   }
 
@@ -26,7 +28,7 @@ class TextStyleHelper {
     return const TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w700,
-      // color: Colors.black,
+      color: AppColor.darkBlue,
     );
   }
 
@@ -35,7 +37,7 @@ class TextStyleHelper {
     return const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w700,
-      // color: Colors.black,
+      color: AppColor.darkBlue,
     );
   }
 
@@ -44,7 +46,16 @@ class TextStyleHelper {
     return const TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w700,
-      // color: Colors.black,
+      color: AppColor.darkBlue,
+    );
+  }
+
+  /// fontSize 12px, fontWeight w700
+  static TextStyle t12b700() {
+    return const TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w700,
+      color: AppColor.darkBlue,
     );
   }
 
@@ -53,7 +64,7 @@ class TextStyleHelper {
     return const TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w400,
-      // color: Colors.black,
+      color: AppColor.darkBlue,
     );
   }
 
@@ -62,7 +73,16 @@ class TextStyleHelper {
     return const TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w600,
-      // color: Colors.black,
+      color: AppColor.darkBlue,
+    );
+  }
+
+  /// fontSize 12px, fontWeight w600
+  static TextStyle t12b600() {
+    return const TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w600,
+      color: AppColor.darkBlue,
     );
   }
 }

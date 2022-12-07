@@ -12,7 +12,7 @@ class NearByPractitionersWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 10),
+        // const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
           child: Row(
@@ -41,7 +41,8 @@ class NearByPractitionersWidget extends StatelessWidget {
           // color: Colors.red,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: getPractitioners.length,
+            itemCount:
+                getPractitioners.length > 5 ? 5 : getPractitioners.length,
             itemBuilder: (context, index) {
               final PractitionersModel data = getPractitioners[index];
               return Padding(
@@ -110,34 +111,36 @@ class PractitionersCard extends StatelessWidget {
               style: TextStyleHelper.t18b700(),
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ...List.generate(
-                  data.keyWords.length,
-                  (index) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2.5),
-                    child: Chip(
-                      // padding: EdgeInsets.all(19),
-                      labelPadding: EdgeInsets.symmetric(
-                        horizontal: 5,
-                        vertical: 0,
-                      ),
-                      backgroundColor: AppColor.primaryColor.withOpacity(.12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      label: Text(
-                        data.keyWords[index],
-                        style: TextStyleHelper.t14b600()
-                            .copyWith(color: AppColor.primaryColor),
+          Scrollbar(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ...List.generate(
+                    data.keyWords.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                      child: Chip(
+                        // padding: EdgeInsets.all(19),
+                        labelPadding: EdgeInsets.symmetric(
+                          horizontal: 5,
+                          vertical: 0,
+                        ),
+                        backgroundColor: AppColor.primaryColor.withOpacity(.12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        label: Text(
+                          data.keyWords[index],
+                          style: TextStyleHelper.t14b600()
+                              .copyWith(color: AppColor.primaryColor),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

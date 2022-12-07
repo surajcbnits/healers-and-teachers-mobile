@@ -15,7 +15,7 @@ class CategoriesListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 10),
+        // const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
           child: Row(
@@ -44,7 +44,7 @@ class CategoriesListWidget extends StatelessWidget {
           // color: Colors.red,
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: categoriesList.length,
+              itemCount: categoriesList.length > 5 ? 5 : categoriesList.length,
               itemBuilder: (context, index) {
                 final CategoriesModel data = categoriesList[index];
                 return Padding(
@@ -82,7 +82,7 @@ class CategoriesCard extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: TextOverImage(title: data.name),
+      child: TextOverImage(title: data.name, maxLine: 2),
     );
   }
 }
