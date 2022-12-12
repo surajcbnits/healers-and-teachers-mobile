@@ -1,12 +1,12 @@
-import '../../../../constant/app_image.dart';
+import '../../../constant/app_image.dart';
 
 class CategoriesModel {
   final String name;
   final String imageUrl;
 
   CategoriesModel({required this.name, required this.imageUrl});
-
 }
+
 // List of categories
 // 👇
 // Meditation
@@ -19,6 +19,7 @@ class CategoriesModel {
 // Prayer
 // Life Design
 // Balinese Healing
+// List<CategoriesModel> get categoriesListData => categoriesList.sort((a, b) => a.name.compareTo(b.name));
 
 List<CategoriesModel> categoriesList = [
   CategoriesModel(

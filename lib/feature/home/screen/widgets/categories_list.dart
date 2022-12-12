@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../constant/app_color.dart';
-import '../../../helper/text_over_mage.dart';
-import '../../../helper/text_style.dart';
-import '../../../utils/screen_size.dart';
-import '../domain/model/categories_model.dart';
+import '../../../../config/routes/routes.dart';
+import '../../../../constant/app_color.dart';
+import '../../../../helper/buttons.dart';
+import '../../../../helper/text_over_mage.dart';
+import '../../../../helper/text_style.dart';
+import '../../../../utils/screen_size.dart';
+import '../../../categories/model/categories_model.dart';
 
 class CategoriesListWidget extends StatelessWidget {
   const CategoriesListWidget({
@@ -13,6 +15,8 @@ class CategoriesListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    categoriesList.shuffle();
+    // print("categoriesList: $categoriesList");
     return Column(
       children: [
         // const SizedBox(height: 10),
@@ -26,7 +30,9 @@ class CategoriesListWidget extends StatelessWidget {
                 style: TextStyleHelper.t20b700(),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.categoriesScreen);
+                },
                 child: Text(
                   "View all",
                   style: TextStyleHelper.t14b700().copyWith(
@@ -43,16 +49,28 @@ class CategoriesListWidget extends StatelessWidget {
           width: screenWidth(context),
           // color: Colors.red,
           child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: categoriesList.length > 5 ? 5 : categoriesList.length,
-              itemBuilder: (context, index) {
-                final CategoriesModel data = categoriesList[index];
+            scrollDirection: Axis.horizontal,
+            itemCount:
+                categoriesList.length + 1, //> 5 ? 5 : categoriesList.length,
+            itemBuilder: (context, index) {
+              if (index == categoriesList.length) {
                 return Padding(
                   padding: EdgeInsets.only(
                       left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
-                  child: CategoriesCard(data: data),
+                  child: ViewAllButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, Routes.categoriesScreen),
+                  ),
                 );
-              }),
+              }
+              final CategoriesModel data = categoriesList[index];
+              return Padding(
+                padding: EdgeInsets.only(
+                    left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
+                child: CategoriesCard(data: data),
+              );
+            },
+          ),
         ),
       ],
     );

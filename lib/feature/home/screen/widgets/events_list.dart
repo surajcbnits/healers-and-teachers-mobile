@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:healersandteachers/feature/home/domain/model/events_model.dart';
 import 'package:intl/intl.dart';
 
-import '../../../constant/app_color.dart';
-import '../../../helper/text_over_mage.dart';
-import '../../../helper/text_style.dart';
-import '../../../utils/screen_size.dart';
+import '../../../../constant/app_color.dart';
+import '../../../../helper/text_over_mage.dart';
+import '../../../../helper/text_style.dart';
+import '../../../../utils/screen_size.dart';
+import 'location_show_widget.dart';
 
-class EventsListTileWidget extends StatelessWidget {
+class EventsListTileWidget extends StatefulWidget {
   const EventsListTileWidget({super.key});
+
+  @override
+  State<EventsListTileWidget> createState() => _EventsListTileWidgetState();
+}
+
+class _EventsListTileWidgetState extends State<EventsListTileWidget> {
+  bool showOnline = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +45,15 @@ class EventsListTileWidget extends StatelessWidget {
             ],
           ),
         ),
-        for (var i = 0; i < length; i++) EventCard(index: i)
+        // for (var i = 0; i < length; i++) EventCard(index: i)
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: length,
+          itemBuilder: (context, index) {
+            return EventCard(index: index);
+          },
+        ),
       ],
     );
   }
@@ -67,7 +83,7 @@ class EventCard extends StatelessWidget {
       child: vertical
           ? Column(
               children: [
-                LocationWidget(
+                IconTextWidget(
                     location: eventsList[index].location,
                     isOnline: eventsList[index].isVirtual),
                 _buildImage(context),
@@ -99,7 +115,7 @@ class EventCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           if (!vertical)
-            LocationWidget(
+            IconTextWidget(
                 location: eventsList[index].location,
                 isOnline: eventsList[index].isVirtual),
           Text(
@@ -165,42 +181,12 @@ class EventCard extends StatelessWidget {
         ),
       ),
       child: TextOverImage(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         title: convertDate(eventsList[index].dateTime),
         style: TextStyleHelper.t14b700().copyWith(
           color: AppColor.white,
         ),
       ),
-    );
-  }
-}
-
-class LocationWidget extends StatelessWidget {
-  const LocationWidget({
-    Key? key,
-    required this.location,
-    required this.isOnline,
-  }) : super(key: key);
-
-  final String location;
-  final bool isOnline;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Icon(
-          Icons.location_on,
-          color: AppColor.primaryColor,
-        ),
-        // SizedBox(width: 10),
-        Text(
-          isOnline ? "Online" : location,
-          style: TextStyleHelper.t14b600().copyWith(
-            color: AppColor.primaryColor,
-          ),
-        ),
-      ],
     );
   }
 }

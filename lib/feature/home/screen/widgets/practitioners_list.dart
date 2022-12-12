@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../constant/app_color.dart';
-import '../../../helper/text_style.dart';
-import '../../../utils/screen_size.dart';
-import '../domain/model/pracitioners_model.dart';
+import '../../../../constant/app_color.dart';
+import '../../../../helper/buttons.dart';
+import '../../../../helper/text_style.dart';
+import '../../../../utils/screen_size.dart';
+import '../../domain/model/pracitioners_model.dart';
 
 class NearByPractitionersWidget extends StatelessWidget {
   const NearByPractitionersWidget({super.key});
@@ -41,9 +42,16 @@ class NearByPractitionersWidget extends StatelessWidget {
           // color: Colors.red,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount:
-                getPractitioners.length > 5 ? 5 : getPractitioners.length,
+            itemCount: getPractitioners.length +
+                1, //> 5 ? 5 : getPractitioners.length,
             itemBuilder: (context, index) {
+              if (index == getPractitioners.length) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
+                  child: const ViewAllButton(),
+                );
+              }
               final PractitionersModel data = getPractitioners[index];
               return Padding(
                 padding: EdgeInsets.only(
@@ -99,6 +107,7 @@ class PractitionersCard extends StatelessWidget {
               ),
             ),
             child: CircleAvatar(
+              backgroundColor: AppColor.primaryColor.withOpacity(.12),
               radius: 40,
               backgroundImage: NetworkImage(data.image),
             ),
@@ -123,7 +132,7 @@ class PractitionersCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 2.5),
                       child: Chip(
                         // padding: EdgeInsets.all(19),
-                        labelPadding: EdgeInsets.symmetric(
+                        labelPadding: const EdgeInsets.symmetric(
                           horizontal: 5,
                           vertical: 0,
                         ),

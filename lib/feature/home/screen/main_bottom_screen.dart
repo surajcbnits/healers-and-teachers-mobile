@@ -14,9 +14,10 @@ class MainBottomScreen extends StatefulWidget {
 }
 
 class _MainBottomScreenState extends State<MainBottomScreen> {
+  /// Bottom Navigation Starting index
   int currentIndex = 0;
 
-  List screenList = [
+  List<Widget> screenList = [
     const HomeScreen(),
     const Center(child: Text('Search')),
     const Center(child: Text('Calendar')),
@@ -28,14 +29,14 @@ class _MainBottomScreenState extends State<MainBottomScreen> {
     return Scaffold(
       body: screenList[currentIndex],
       bottomNavigationBar: BottomAppBar(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: bottomNavBarIcons
-            .map(
-              (e) => Padding(
-                padding: EdgeInsets.only(
-                    top: 10, bottom: Platform.isAndroid ? 10 : 0),
-                child: GestureDetector(
+          child: Padding(
+        padding: EdgeInsets.only(
+            top: 10, bottom: Platform.isAndroid ? 10 : 0, left: 10, right: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: bottomNavBarIcons
+              .map(
+                (e) => GestureDetector(
                   onTap: () {
                     setState(() {
                       currentIndex = e['index'];
@@ -46,9 +47,9 @@ class _MainBottomScreenState extends State<MainBottomScreen> {
                       label: e['title'],
                       isSelected: e['index'] == currentIndex),
                 ),
-              ),
-            )
-            .toList(),
+              )
+              .toList(),
+        ),
       )),
       // bottomNavigationBar: BottomNavigationBar(
       //     type: BottomNavigationBarType.fixed,
@@ -107,13 +108,14 @@ class BuildNavIcon extends StatelessWidget {
               color: isSelected
                   ? AppColor.primaryColor
                   : AppColor.darkBlue.withOpacity(0.6)),
-          if (isSelected)
-            Text(
-              label,
-              style: TextStyleHelper.t12b700().copyWith(
-                color: AppColor.primaryColor,
-              ),
-            ),
+          // if (isSelected)
+          Text(
+            label,
+            style: TextStyleHelper.t12b700().copyWith(
+                color: isSelected
+                    ? AppColor.primaryColor
+                    : AppColor.darkBlue.withOpacity(0.6)),
+          ),
         ],
       ),
     );
@@ -133,7 +135,7 @@ List bottomNavBarIcons = [
   },
   {
     "icon": Icons.calendar_today,
-    "title": "Calendar",
+    "title": "Event",
     "index": 2,
   },
   {

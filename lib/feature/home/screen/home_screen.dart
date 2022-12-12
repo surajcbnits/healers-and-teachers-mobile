@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:healersandteachers/constant/app_color.dart';
 
+import '../../../config/routes/routes.dart';
 import '../../../helper/text_style.dart';
 import '../domain/model/user_model.dart';
-import '../widgets/categories_list.dart';
-import '../widgets/events_list.dart';
-import '../widgets/practitioners_list.dart';
+import 'widgets/categories_list.dart';
+import 'widgets/events_list.dart';
+import 'widgets/practitioners_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -37,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const CategoriesListWidget(),
               const NearByPractitionersWidget(),
+              const EventsListTileWidget()
             ],
           ),
         ),
@@ -67,7 +69,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const Spacer(),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.changeLocationScreen);
+              },
               child: Text(
                 "Change",
                 style: TextStyleHelper.t16b700().copyWith(
