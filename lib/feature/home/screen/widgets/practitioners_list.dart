@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../../../config/routes/routes.dart';
 import '../../../../constant/app_color.dart';
 import '../../../../helper/buttons.dart';
 import '../../../../helper/text_style.dart';
 import '../../../../utils/screen_size.dart';
-import '../../domain/model/pracitioners_model.dart';
+import '../../../../widgets/chip.dart';
+import '../../../paractitioners/model/pracitioners_model.dart';
 
 class NearByPractitionersWidget extends StatelessWidget {
   const NearByPractitionersWidget({super.key});
@@ -24,7 +26,9 @@ class NearByPractitionersWidget extends StatelessWidget {
                 style: TextStyleHelper.t20b700(),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.practitionerScreen);
+                },
                 child: Text(
                   "View all",
                   style: TextStyleHelper.t14b700().copyWith(
@@ -37,21 +41,21 @@ class NearByPractitionersWidget extends StatelessWidget {
         ),
         Container(
           margin: const EdgeInsets.only(bottom: 10),
-          height: screenHeight(context) * 0.206,
+          height: screenWidth(context) * 0.45,
           width: screenWidth(context),
           // color: Colors.red,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: getPractitioners.length +
-                1, //> 5 ? 5 : getPractitioners.length,
+            itemCount:
+                getPractitioners.length, //> 5 ? 5 : getPractitioners.length,
             itemBuilder: (context, index) {
-              if (index == getPractitioners.length) {
-                return Padding(
-                  padding: EdgeInsets.only(
-                      left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
-                  child: const ViewAllButton(),
-                );
-              }
+              // if (index == getPractitioners.length) {
+              //   return Padding(
+              //     padding: EdgeInsets.only(
+              //         left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
+              //     child: const ViewAllButton(),
+              //   );
+              // }
               final PractitionersModel data = getPractitioners[index];
               return Padding(
                 padding: EdgeInsets.only(
@@ -130,22 +134,7 @@ class PractitionersCard extends StatelessWidget {
                     data.keyWords.length,
                     (index) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2.5),
-                      child: Chip(
-                        // padding: EdgeInsets.all(19),
-                        labelPadding: const EdgeInsets.symmetric(
-                          horizontal: 5,
-                          vertical: 0,
-                        ),
-                        backgroundColor: AppColor.primaryColor.withOpacity(.12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        label: Text(
-                          data.keyWords[index],
-                          style: TextStyleHelper.t14b600()
-                              .copyWith(color: AppColor.primaryColor),
-                        ),
-                      ),
+                      child: CustomChip(title: data.keyWords[index]),
                     ),
                   ),
                 ],

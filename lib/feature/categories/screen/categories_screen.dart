@@ -10,7 +10,6 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.white,
       appBar: AppBar(
         title: const Text('Categories'),
       ),

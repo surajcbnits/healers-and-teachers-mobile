@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constant/app_color.dart';
 import '../../../helper/text_style.dart';
+import '../../paractitioners/screen/practitioners_screen.dart';
 import 'home_screen.dart';
 
 class MainBottomScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _MainBottomScreenState extends State<MainBottomScreen> {
 
   List<Widget> screenList = [
     const HomeScreen(),
-    const Center(child: Text('Search')),
+    const PractitionerScreen(),
     const Center(child: Text('Calendar')),
     const Center(child: Text('Account')),
   ];

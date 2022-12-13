@@ -89,7 +89,7 @@ class _ChangeLocationScreenState extends State<ChangeLocationScreen> {
                       const SizedBox(width: 10),
                       Text(
                         "Use my current location",
-                        style: TextStyleHelper.t14b600(),
+                        style: TextStyleHelper.t16b600(),
                       ),
                     ],
                   ),
@@ -98,6 +98,27 @@ class _ChangeLocationScreenState extends State<ChangeLocationScreen> {
                   height: 0,
                   color: AppColor.primaryColor.withOpacity(.2),
                   thickness: 2,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundColor: AppColor.primaryColor.withOpacity(.2),
+                        child: const Icon(
+                          Icons.videocam_outlined,
+                          size: 30,
+                          color: AppColor.primaryColor,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        "Online Sessions",
+                        style: TextStyleHelper.t16b600(),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

@@ -25,11 +25,13 @@ class MyApp extends StatelessWidget {
 
   ThemeData appTheme() {
     return ThemeData(
+      fontFamily: "Proxima Nova",
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColor.primaryColor,
         primary: AppColor.primaryColor,
         secondary: AppColor.secondaryColor,
       ),
+      scaffoldBackgroundColor: AppColor.white,
       appBarTheme: AppBarTheme(
         backgroundColor: AppColor.white,
         elevation: 0,

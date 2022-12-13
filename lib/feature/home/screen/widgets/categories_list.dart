@@ -51,18 +51,18 @@ class CategoriesListWidget extends StatelessWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount:
-                categoriesList.length + 1, //> 5 ? 5 : categoriesList.length,
+                categoriesList.length , //> 5 ? 5 : categoriesList.length,
             itemBuilder: (context, index) {
-              if (index == categoriesList.length) {
-                return Padding(
-                  padding: EdgeInsets.only(
-                      left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
-                  child: ViewAllButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, Routes.categoriesScreen),
-                  ),
-                );
-              }
+              // if (index == categoriesList.length) {
+              //   return Padding(
+              //     padding: EdgeInsets.only(
+              //         left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
+              //     child: ViewAllButton(
+              //       onPressed: () =>
+              //           Navigator.pushNamed(context, Routes.categoriesScreen),
+              //     ),
+              //   );
+              // }
               final CategoriesModel data = categoriesList[index];
               return Padding(
                 padding: EdgeInsets.only(

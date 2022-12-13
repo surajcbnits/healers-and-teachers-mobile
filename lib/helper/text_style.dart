@@ -41,6 +41,15 @@ class TextStyleHelper {
     );
   }
 
+  /// fontSize 16px, fontWeight w600
+  static TextStyle t16b600() {
+    return const TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: AppColor.darkBlue,
+    );
+  }
+
   /// fontSize 14px, fontWeight w700
   static TextStyle t14b700() {
     return const TextStyle(
