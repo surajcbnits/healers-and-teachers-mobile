@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constant/app_color.dart';
 import '../../../helper/text_style.dart';
+import '../../events/screen/events_screen.dart';
 import '../../paractitioners/screen/practitioners_screen.dart';
 import 'home_screen.dart';
 
@@ -21,7 +22,7 @@ class _MainBottomScreenState extends State<MainBottomScreen> {
   List<Widget> screenList = [
     const HomeScreen(),
     const PractitionerScreen(),
-    const Center(child: Text('Calendar')),
+    const EventScreen(),
     const Center(child: Text('Account')),
   ];
 

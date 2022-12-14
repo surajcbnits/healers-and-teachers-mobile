@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:healersandteachers/feature/location/screen/locartion.dart';
 
 import '../../feature/categories/screen/categories_screen.dart';
+import '../../feature/events/screen/events_screen.dart';
 import '../../feature/home/screen/home_screen.dart';
 import '../../feature/home/screen/main_bottom_screen.dart';
 import '../../feature/paractitioners/screen/practitioners_screen.dart';
@@ -13,6 +14,7 @@ class Routes {
   static const String changeLocationScreen = '/changeLocationScreen';
   static const String categoriesScreen = '/categoriesScreen';
   static const String practitionerScreen = '/practitionerScreen';
+  static const String eventScreen = '/eventScreen';
 }
 
 class RouteGenerator {
@@ -33,6 +35,9 @@ class RouteGenerator {
       case Routes.practitionerScreen:
         return MaterialPageRoute(
             builder: (context) => const PractitionerScreen());
+      case Routes.eventScreen:
+        return MaterialPageRoute(
+            builder: (context) => const EventScreen());
 
       default:
         return _errorRoute();

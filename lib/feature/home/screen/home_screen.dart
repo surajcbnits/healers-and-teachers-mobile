@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:healersandteachers/constant/app_color.dart';
 
-import '../../../config/routes/routes.dart';
 import '../../../helper/text_style.dart';
+import '../../../widgets/location_tile.dart';
 import '../domain/model/user_model.dart';
 import 'widgets/categories_list.dart';
 import 'widgets/events_list.dart';
@@ -46,41 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Container locationTile(Size size) {
-    return Container(
-      width: size.width,
-      // height: size.width * 0.11,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      decoration: BoxDecoration(
-        color: AppColor.primaryColor.withOpacity(.12),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.location_on,
-            color: AppColor.primaryColor,
-            size: 30,
-          ),
-          const SizedBox(width: 8),
-          Text(
-            "San Francisco, California",
-            style: TextStyleHelper.t14b600(),
-          ),
-          const Spacer(),
-          TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, Routes.changeLocationScreen);
-              },
-              child: Text(
-                "Change",
-                style: TextStyleHelper.t16b700().copyWith(
-                  color: AppColor.primaryColor,
-                ),
-              ))
-        ],
-      ),
-    );
+  Widget locationTile(Size size) {
+    return const LocationTile();
   }
 
   Row profileTile(Size size) {
