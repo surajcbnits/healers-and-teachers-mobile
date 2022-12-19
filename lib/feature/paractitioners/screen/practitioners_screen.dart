@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healersandteachers/helper/text_style.dart';
 
+import '../../../config/routes/routes.dart';
 import '../../../constant/app_color.dart';
 import '../../../widgets/chip.dart';
 import '../../../widgets/icon_text_widget.dart';
@@ -59,7 +60,13 @@ class PractitionerScreen extends StatelessWidget {
                 },
                 itemBuilder: (context, index) {
                   final PractitionersModel data = getPractitioners[index];
-                  return PractitionerListCard(data: data);
+                  return InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, Routes.practitionerProfileScreen,
+                            arguments: data);
+                      },
+                      child: PractitionerListCard(data: data));
                 },
               ),
             )
@@ -116,7 +123,7 @@ class PractitionerListCard extends StatelessWidget {
               ),
               const IconTextWidget(
                 isOnline: false,
-                location: "7893 Miles",
+                title: "7893 Miles",
                 color: AppColor.grey,
               ),
             ],

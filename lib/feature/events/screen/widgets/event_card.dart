@@ -35,8 +35,7 @@ class EventCard extends StatelessWidget {
           ? Column(
               children: [
                 IconTextWidget(
-                    location: eventData.location,
-                    isOnline: eventData.isVirtual),
+                    title: eventData.location, isOnline: eventData.isVirtual),
                 _buildImage(context),
                 const SizedBox(height: 10),
                 _buildDetail(context),
@@ -67,7 +66,7 @@ class EventCard extends StatelessWidget {
         children: [
           if (!vertical)
             IconTextWidget(
-                location: eventData.location, isOnline: eventData.isVirtual),
+                title: eventData.location, isOnline: eventData.isVirtual),
           Text(
             eventData.title,
             maxLines: 1,
@@ -130,7 +129,7 @@ class EventCard extends StatelessWidget {
         ),
       ),
       child: TextOverImage(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         title: convertDate(eventData.dateTime),
         style: TextStyleHelper.t14b700().copyWith(
           color: AppColor.white,

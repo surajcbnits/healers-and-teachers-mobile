@@ -59,6 +59,15 @@ class TextStyleHelper {
     );
   }
 
+  /// fontSize 14px, fontWeight w400
+  static TextStyle t14b400() {
+    return const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: AppColor.darkBlue,
+    );
+  }
+
   /// fontSize 12px, fontWeight w700
   static TextStyle t12b700() {
     return const TextStyle(

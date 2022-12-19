@@ -5,7 +5,9 @@ import '../../feature/categories/screen/categories_screen.dart';
 import '../../feature/events/screen/events_screen.dart';
 import '../../feature/home/screen/home_screen.dart';
 import '../../feature/home/screen/main_bottom_screen.dart';
+import '../../feature/paractitioners/model/pracitioners_model.dart';
 import '../../feature/paractitioners/screen/practitioners_screen.dart';
+import '../../feature/practitionerProfile/screen/practitioner_profile_screen.dart';
 
 class Routes {
   Routes._();
@@ -15,6 +17,7 @@ class Routes {
   static const String categoriesScreen = '/categoriesScreen';
   static const String practitionerScreen = '/practitionerScreen';
   static const String eventScreen = '/eventScreen';
+  static const String practitionerProfileScreen = '/practitionerProfileScreen';
 }
 
 class RouteGenerator {
@@ -36,9 +39,15 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (context) => const PractitionerScreen());
       case Routes.eventScreen:
-        return MaterialPageRoute(
-            builder: (context) => const EventScreen());
-
+        return MaterialPageRoute(builder: (context) => const EventScreen());
+      case Routes.practitionerProfileScreen:
+        if (settings.arguments != null) {
+          return MaterialPageRoute(
+              builder: (context) => PractitionerProfileScreen(
+                    practitionerData: settings.arguments as PractitionersModel,
+                  ));
+        }
+        return _errorRoute();
       default:
         return _errorRoute();
     }

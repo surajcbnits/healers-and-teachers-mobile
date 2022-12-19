@@ -6,12 +6,14 @@ import '../helper/text_style.dart';
 class IconTextWidget extends StatelessWidget {
   const IconTextWidget({
     Key? key,
-    required this.location,
-    required this.isOnline,
+    this.title = '',
+    this.isOnline = false,
     this.color,
+    this.iconData,
   }) : super(key: key);
 
-  final String location;
+  final String title;
+  final IconData? iconData;
   final bool isOnline;
   final Color? color;
 
@@ -20,12 +22,12 @@ class IconTextWidget extends StatelessWidget {
     return Row(
       children: [
         Icon(
-          Icons.location_on,
+          iconData ?? Icons.location_on,
           color: color ?? AppColor.primaryColor,
         ),
         const SizedBox(width: 10),
         Text(
-          isOnline ? "Online" : location,
+          isOnline ? "Online" : title,
           style: TextStyleHelper.t14b600().copyWith(
             color: color ?? AppColor.primaryColor,
           ),

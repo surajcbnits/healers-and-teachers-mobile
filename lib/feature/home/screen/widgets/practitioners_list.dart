@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../config/routes/routes.dart';
 import '../../../../constant/app_color.dart';
-import '../../../../helper/buttons.dart';
 import '../../../../helper/text_style.dart';
 import '../../../../utils/screen_size.dart';
 import '../../../../widgets/chip.dart';
@@ -60,7 +59,13 @@ class NearByPractitionersWidget extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.only(
                     left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
-                child: PractitionersCard(data: data),
+                child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, Routes.practitionerProfileScreen,
+                          arguments: data);
+                    },
+                    child: PractitionersCard(data: data)),
               );
             },
           ),
