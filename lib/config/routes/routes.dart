@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:healersandteachers/feature/location/screen/locartion.dart';
 
+import '../../feature/categories/model/categories_model.dart';
 import '../../feature/categories/screen/categories_screen.dart';
+import '../../feature/categories_detail/screen/categories_detail_screen.dart';
 import '../../feature/events/screen/events_screen.dart';
 import '../../feature/home/screen/home_screen.dart';
 import '../../feature/home/screen/main_bottom_screen.dart';
@@ -18,6 +20,7 @@ class Routes {
   static const String practitionerScreen = '/practitionerScreen';
   static const String eventScreen = '/eventScreen';
   static const String practitionerProfileScreen = '/practitionerProfileScreen';
+  static const String categoriesDetailScreen = '/categoriesDetailScreen';
 }
 
 class RouteGenerator {
@@ -47,18 +50,26 @@ class RouteGenerator {
                     practitionerData: settings.arguments as PractitionersModel,
                   ));
         }
-        return _errorRoute();
+        return _errorRoute(errorText: "dataErrorInRoute");
+      case Routes.categoriesDetailScreen:
+        if (settings.arguments != null) {
+          return MaterialPageRoute(
+              builder: (context) => CategoriesDetailScreen(
+                    categoriesModel: settings.arguments as CategoriesModel,
+                  ));
+        }
+        return _errorRoute(errorText: "dataErrorInRoute");
       default:
         return _errorRoute();
     }
   }
 
-  static Route<dynamic> _errorRoute() {
+  static Route<dynamic> _errorRoute({String? errorText}) {
     return MaterialPageRoute(builder: (_) {
       return Scaffold(
         appBar: AppBar(title: const Text("Error")),
-        body: const Center(
-          child: Text("Somthing went wrong"),
+        body: Center(
+          child: Text(errorText ?? "Something went wrong"),
         ),
       );
     });

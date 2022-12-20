@@ -21,8 +21,8 @@ class _MainBottomScreenState extends State<MainBottomScreen> {
 
   List<Widget> screenList = [
     const HomeScreen(),
-    const PractitionerScreen(),
     const EventScreen(),
+    const PractitionerScreen(),
     const Center(child: Text('Account')),
   ];
 
@@ -131,13 +131,13 @@ List bottomNavBarIcons = [
     "index": 0,
   },
   {
-    "icon": Icons.search,
-    "title": "Search",
+    "icon": Icons.calendar_today,
+    "title": "Events",
     "index": 1,
   },
   {
-    "icon": Icons.calendar_today,
-    "title": "Event",
+    "icon": Icons.search,
+    "title": "Search",
     "index": 2,
   },
   {

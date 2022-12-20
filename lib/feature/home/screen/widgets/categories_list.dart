@@ -26,7 +26,7 @@ class CategoriesListWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Categories",
+                "Wellness Resources",
                 style: TextStyleHelper.t20b700(),
               ),
               TextButton(
@@ -50,8 +50,7 @@ class CategoriesListWidget extends StatelessWidget {
           // color: Colors.red,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount:
-                categoriesList.length , //> 5 ? 5 : categoriesList.length,
+            itemCount: categoriesList.length, //> 5 ? 5 : categoriesList.length,
             itemBuilder: (context, index) {
               // if (index == categoriesList.length) {
               //   return Padding(
@@ -87,20 +86,26 @@ class CategoriesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      // margin: EdgeInsets.only(
-      //     left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
-      width: screenWidth(context) * 0.36,
-      height: screenHeight(context) * 0.22,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        image: DecorationImage(
-          image: NetworkImage(data.imageUrl),
-          fit: BoxFit.cover,
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, Routes.categoriesDetailScreen,
+            arguments: data);
+      },
+      child: Container(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        // margin: EdgeInsets.only(
+        //     left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
+        width: screenWidth(context) * 0.36,
+        height: screenHeight(context) * 0.22,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(
+            image: NetworkImage(data.imageUrl),
+            fit: BoxFit.cover,
+          ),
         ),
+        child: TextOverImage(title: data.name, maxLine: 2),
       ),
-      child: TextOverImage(title: data.name, maxLine: 2),
     );
   }
 }

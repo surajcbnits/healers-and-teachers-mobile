@@ -58,15 +58,26 @@ class PractitionerProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 10),
-                    Text(
-                      practitionerData.name,
-                      style: TextStyleHelper.t18b700(),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            practitionerData.name,
+                            style: TextStyleHelper.t18b700(),
+                          ),
+                        ),
+                        OutlinedButton.icon(
+                            onPressed: () {},
+                            icon: const Icon(Icons.add),
+                            label: const Text("Follow")),
+                      ],
                     ),
-                    const SizedBox(height: 10),
-                    const IconTextWidget(
-                      title: "New York",
-                      isOnline: false,
-                      color: AppColor.grey,
+                    Text(
+                      "Certified yoga and breathwork teacher",
+                      style: TextStyleHelper.t14b600().copyWith(
+                        // height: 1.2,
+                        color: AppColor.grey,
+                      ),
                     ),
                     Wrap(
                       // mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -82,6 +93,12 @@ class PractitionerProfileScreen extends StatelessWidget {
                           ),
                         ),
                       ],
+                    ),
+                    // const SizedBox(height: 10),
+                    const IconTextWidget(
+                      title: "New York",
+                      isOnline: false,
+                      color: AppColor.grey,
                     ),
                     titleText("About"),
                     Text(
@@ -136,7 +153,7 @@ class PractitionerProfileScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 10),
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return ReviewTile();
+                        return const ReviewTile();
                       },
                       itemCount: 3,
                     ),
@@ -254,7 +271,7 @@ class ReviewTile extends StatelessWidget {
           CircleAvatar(
             backgroundColor: AppColor.primaryColor.withOpacity(.12),
             radius: 30,
-            backgroundImage: NetworkImage(
+            backgroundImage: const NetworkImage(
                 "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZSUyMHBob3RvfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60"),
           ),
           const SizedBox(width: 10),

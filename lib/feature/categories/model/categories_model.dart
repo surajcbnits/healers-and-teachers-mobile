@@ -68,7 +68,7 @@ List<CategoriesModel> categoriesList = [
         "https://images.unsplash.com/photo-1584589167171-541ce45f1eea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bGlmZSUyMHN0eWxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60",
   ),
   CategoriesModel(
-    name: "Balinese Healing",
+    name: "Balian Healing",
     imageUrl:
         "https://images.unsplash.com/photo-1582107208835-973713624596?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fEhlYWxpbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
   ),

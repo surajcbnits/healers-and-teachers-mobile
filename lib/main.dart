@@ -26,6 +26,12 @@ class MyApp extends StatelessWidget {
   ThemeData appTheme() {
     return ThemeData(
       fontFamily: "Proxima Nova",
+      // scrollbarTheme: ScrollbarThemeData(
+      //   interactive: true,
+      //   thumbColor: MaterialStateProperty.all(AppColor.primaryColor),
+      //   trackVisibility: MaterialStateProperty.all(true),
+      //   trackColor: MaterialStateProperty.resolveWith((states) => Colors.grey),
+      // ),
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColor.primaryColor,
         primary: AppColor.primaryColor,

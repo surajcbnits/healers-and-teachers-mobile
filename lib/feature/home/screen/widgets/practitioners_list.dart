@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healersandteachers/widgets/icon_text_widget.dart';
 
 import '../../../../config/routes/routes.dart';
 import '../../../../constant/app_color.dart';
@@ -79,9 +80,11 @@ class PractitionersCard extends StatelessWidget {
   const PractitionersCard({
     Key? key,
     required this.data,
+    this.showDistance = false,
   }) : super(key: key);
 
   final PractitionersModel data;
+  final bool showDistance;
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +104,7 @@ class PractitionersCard extends StatelessWidget {
       ),
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             padding: const EdgeInsets.all(5),
@@ -129,23 +133,29 @@ class PractitionersCard extends StatelessWidget {
               style: TextStyleHelper.t18b700(),
             ),
           ),
-          Scrollbar(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ...List.generate(
-                    data.keyWords.length,
-                    (index) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 2.5),
-                      child: CustomChip(title: data.keyWords[index]),
+          showDistance
+              ? IconTextWidget(
+                  title: "7890 Miles",
+                  color: AppColor.grey,
+                )
+              : Scrollbar(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ...List.generate(
+                          data.keyWords.length,
+                          (index) => Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 2.5),
+                            child: CustomChip(title: data.keyWords[index]),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
+                ),
         ],
       ),
     );

@@ -11,7 +11,7 @@ class CategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Categories'),
+        title: const Text('Wellness Resources'),
       ),
       body: SafeArea(
         child: GridView.builder(
