@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:healersandteachers/constant/app_color.dart';
 import 'package:healersandteachers/helper/text_style.dart';
 
+import '../../../config/routes/routes.dart';
 import '../model/categories_model.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -47,21 +48,28 @@ class CategoriesScreen extends StatelessWidget {
             }
             // index = index - 1;
             final CategoriesModel data = categoriesList[index - 1];
-            return Container(
-              // color: Colors.amber,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: AppColor.primaryColor.withOpacity(0.1),
-                    backgroundImage: NetworkImage(data.imageUrl),
-                    radius: 40,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(data.name,
-                      textAlign: TextAlign.center,
-                      style: TextStyleHelper.t16b700()),
-                ],
+            return InkWell(
+              onTap: () {
+                // Navigator.pushNamed(context, Routes.categoriesScreen);
+                Navigator.pushNamed(context, Routes.categoriesDetailScreen,
+                    arguments: data);
+              },
+              child: Container(
+                // color: Colors.amber,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: AppColor.primaryColor.withOpacity(0.1),
+                      backgroundImage: NetworkImage(data.imageUrl),
+                      radius: 40,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(data.name,
+                        textAlign: TextAlign.center,
+                        style: TextStyleHelper.t16b700()),
+                  ],
+                ),
               ),
             );
           },

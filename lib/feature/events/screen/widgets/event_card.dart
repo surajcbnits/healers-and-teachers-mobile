@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../config/routes/routes.dart';
 import '../../../../constant/app_color.dart';
 import '../../../../helper/text_over_mage.dart';
 import '../../../../helper/text_style.dart';
@@ -29,31 +30,39 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: vertical
-          ? Column(
-              children: [
-                IconTextWidget(
-                    title: eventData.location, isOnline: eventData.isVirtual),
-                _buildImage(context),
-                const SizedBox(height: 10),
-                _buildDetail(context),
-              ],
-            )
-          : Row(
-              children: [
-                Expanded(
-                  flex: 4,
-                  child: _buildImage(context),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  flex: 5,
-                  child: _buildDetail(context),
-                ),
-              ],
-            ),
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, Routes.eventDetailScreen,
+            arguments: eventData);
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: vertical
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IconTextWidget(
+                      title: eventData.location, isOnline: eventData.isVirtual),
+                  const SizedBox(height: 10),
+                  _buildImage(context),
+                  const SizedBox(height: 10),
+                  _buildDetail(context),
+                ],
+              )
+            : Row(
+                children: [
+                  Expanded(
+                    flex: 4,
+                    child: _buildImage(context),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    flex: 5,
+                    child: _buildDetail(context),
+                  ),
+                ],
+              ),
+      ),
     );
   }
 
@@ -120,6 +129,7 @@ class EventCard extends StatelessWidget {
   ) {
     return Container(
       height: screenHeight(context) * 0.13,
+      width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: AppColor.primaryColor,

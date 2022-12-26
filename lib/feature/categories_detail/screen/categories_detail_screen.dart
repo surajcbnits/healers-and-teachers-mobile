@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:healersandteachers/feature/events/model/events_model.dart';
+import 'package:healersandteachers/feature/events/screen/widgets/event_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../config/routes/routes.dart';
@@ -65,15 +67,11 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
                 height: screenWidth(context) * 0.4,
                 child: PageView.builder(
                   controller: _pageController,
-                  // reverse: true,
-                  // itemCount: 5,
-                  // pageSnapping: false,
                   scrollDirection: Axis.horizontal,
-
-                  // childCount: 5,
-
                   itemBuilder: (context, index) {
                     print("index $index");
+                    print(
+                        "index % imageList.length ${index % imageList.length}");
                     // bool isCurrentIndex =
                     //     index % imageList.length == _currentIndex;
                     return Container(
@@ -204,6 +202,27 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
                     ),
                   ],
                 ),
+              ),
+              GridView(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.65,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 5,
+                ),
+                children: [
+                  ...List.generate(
+                    getPractitioners
+                        .length, //> 4 ? 4 : getPractitioners.length,
+                    (index) => EventCard(
+                      eventData: eventsList[index],
+                      vertical: true,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

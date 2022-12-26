@@ -4,6 +4,7 @@ import 'package:healersandteachers/constant/app_color.dart';
 
 import '../../../helper/text_style.dart';
 import '../../../utils/screen_size.dart';
+import '../../../widgets/circular_profile.dart';
 import '../../../widgets/location_tile.dart';
 import '../domain/model/user_model.dart';
 import 'widgets/categories_list.dart';
@@ -115,33 +116,10 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           ],
         ),
-        Container(
-          width: size.width * 0.16,
-          height: size.width * 0.16,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: AppColor.secondaryColor.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: const Offset(0, 0),
-              ),
-            ],
-            image: DecorationImage(
-              image: NetworkImage(user.profileImage),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: AppColor.white.withOpacity(0.5),
-                width: 3,
-              ),
-            ),
-          ),
+        CircularProfile(
+          image: NetworkImage(user.profileImage),
+          backgroundColor: AppColor.secondaryColor.withOpacity(0.5),
+          radius: 35,
         ),
       ],
     );
