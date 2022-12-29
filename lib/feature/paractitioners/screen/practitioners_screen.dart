@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:healersandteachers/helper/text_style.dart';
+import 'package:provider/provider.dart';
 
 import '../../../config/routes/routes.dart';
 import '../../../constant/app_color.dart';
 import '../../../widgets/chip.dart';
 import '../../../widgets/icon_text_widget.dart';
 import '../model/pracitioners_model.dart';
+import '../providers/paractitioners_provider.dart';
 
-class PractitionerScreen extends StatelessWidget {
+class PractitionerScreen extends StatefulWidget {
   const PractitionerScreen({super.key});
+
+  @override
+  State<PractitionerScreen> createState() => _PractitionerScreenState();
+}
+
+class _PractitionerScreenState extends State<PractitionerScreen> {
+  @override
+  void initState() {
+    Provider.of<PractitionersProvider>(context, listen: false)
+        .fetchPractitionersList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +73,7 @@ class PractitionerScreen extends StatelessWidget {
                   );
                 },
                 itemBuilder: (context, index) {
-                  final PractitionersModel data = getPractitioners[index];
+                  final PractitionersModelTemp data = getPractitioners[index];
                   return InkWell(
                       onTap: () {
                         Navigator.pushNamed(
@@ -82,7 +96,7 @@ class PractitionerListCard extends StatelessWidget {
     Key? key,
     required this.data,
   }) : super(key: key);
-  final PractitionersModel data;
+  final PractitionersModelTemp data;
 
   @override
   Widget build(BuildContext context) {

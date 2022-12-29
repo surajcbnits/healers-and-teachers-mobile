@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:healersandteachers/constant/app_color.dart';
+import 'package:healersandteachers/helper/api_helper.dart';
 import 'package:healersandteachers/helper/text_style.dart';
+import 'package:provider/provider.dart';
 
 import 'config/routes/routes.dart';
 import 'feature/home/screen/main_bottom_screen.dart';
+import 'feature/paractitioners/providers/paractitioners_provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  ApiHelper.init();
   runApp(const MyApp());
 }
 
@@ -14,12 +19,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Healer and Teacher',
-      theme: appTheme(),
-      home: const MainBottomScreen(),
-      onGenerateRoute: RouteGenerator.generateRoute,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => PractitionersProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Healer and Teacher',
+        theme: appTheme(),
+        home: const MainBottomScreen(),
+        onGenerateRoute: RouteGenerator.generateRoute,
+      ),
     );
   }
 

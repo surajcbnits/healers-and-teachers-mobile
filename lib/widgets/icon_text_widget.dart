@@ -10,12 +10,14 @@ class IconTextWidget extends StatelessWidget {
     this.isOnline = false,
     this.color,
     this.iconData,
+    this.isTextThin = false,
   }) : super(key: key);
 
   final String title;
   final IconData? iconData;
   final bool isOnline;
   final Color? color;
+  final bool isTextThin;
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +31,13 @@ class IconTextWidget extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           isOnline ? "Online" : title,
-          style: TextStyleHelper.t14b600().copyWith(
-            color: color ?? AppColor.primaryColor,
-          ),
+          style: isTextThin
+              ? TextStyleHelper.t14b400().copyWith(
+                  color: color ?? AppColor.primaryColor,
+                )
+              : TextStyleHelper.t14b600().copyWith(
+                  color: color ?? AppColor.primaryColor,
+                ),
         ),
       ],
     );

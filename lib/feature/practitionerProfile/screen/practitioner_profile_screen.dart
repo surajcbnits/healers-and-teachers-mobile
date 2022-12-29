@@ -1,27 +1,51 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:healersandteachers/constant/api_path.dart';
 import 'package:healersandteachers/constant/app_color.dart';
 import 'package:healersandteachers/helper/text_style.dart';
 import 'package:healersandteachers/utils/screen_size.dart';
 import 'package:healersandteachers/widgets/icon_text_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import '../../../widgets/chip.dart';
 import '../../events/model/events_model.dart';
 import '../../events/screen/widgets/event_card.dart';
 import '../../paractitioners/model/pracitioners_model.dart';
+import '../../paractitioners/providers/paractitioners_provider.dart';
 
-class PractitionerProfileScreen extends StatelessWidget {
+class PractitionerProfileScreen extends StatefulWidget {
   const PractitionerProfileScreen({super.key, required this.practitionerData});
 
   final PractitionersModel practitionerData;
 
   @override
+  State<PractitionerProfileScreen> createState() =>
+      _PractitionerProfileScreenState();
+}
+
+class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
+  late PractitionersModel memberData;
+  bool isLoading = true;
+  @override
+  void initState() {
+    Provider.of<PractitionersProvider>(context, listen: false)
+        .fetchPractitioners(widget.practitionerData.username!)
+        .then((value) {
+      setState(() {
+        memberData = value!;
+      });
+    }).whenComplete(() => setState(() {
+              isLoading = false;
+            }));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // final args =
     //     ModalRoute.of(context)!.settings.arguments as PractitionersModel;
-    log(practitionerData.name);
+    // log(practitionerData.name);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -35,7 +59,8 @@ class PractitionerProfileScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.red,
                   image: DecorationImage(
-                    image: NetworkImage(practitionerData.image),
+                    image: NetworkImage(
+                        ApiPath.serverDomain + widget.practitionerData.image!),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -62,7 +87,7 @@ class PractitionerProfileScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            practitionerData.name,
+                            "${widget.practitionerData.firstName!} ${widget.practitionerData.lastName!}",
                             style: TextStyleHelper.t18b700(),
                           ),
                         ),
@@ -73,36 +98,38 @@ class PractitionerProfileScreen extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      "Certified yoga and breathwork teacher",
+                      widget.practitionerData.title!,
                       style: TextStyleHelper.t14b600().copyWith(
-                        // height: 1.2,
                         color: AppColor.grey,
                       ),
                     ),
-                    Wrap(
-                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      spacing: 10,
-                      children: [
-                        ...List.generate(
-                          practitionerData.keyWords.length,
-                          (index) => Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 2.5),
-                            child: CustomChip(
-                                title: practitionerData.keyWords[index]),
+                    if (!isLoading)
+                      Wrap(
+                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        spacing: 10,
+                        children: [
+                          ...List.generate(
+                            memberData.wellnesskeywords!.length,
+                            (index) => Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 2.5),
+                              child: CustomChip(
+                                  title: memberData
+                                      .wellnesskeywords![index].name!),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
                     // const SizedBox(height: 10),
-                    const IconTextWidget(
-                      title: "New York",
+                    IconTextWidget(
+                      title:
+                          "${widget.practitionerData.city!}, ${widget.practitionerData.state!}",
                       isOnline: false,
                       color: AppColor.grey,
                     ),
                     titleText("About"),
                     Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Sed consequat eget tellus eget ullamcorper. Sed finibus  cursus turpis et pellentesque. Suspendisse sollicitudin  posuere nunc, eu pharetra diam ornare vitae.",
+                      widget.practitionerData.aboutme!,
                       style: TextStyleHelper.t14b400()
                           .copyWith(color: AppColor.grey, height: 1.4),
                     ),
@@ -110,14 +137,14 @@ class PractitionerProfileScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(10.0),
                       child: InkWell(
                         onTap: () {
-                          contactBottomSheet(context);
+                          contactBottomSheet(context, widget.practitionerData);
                         },
                         child: Row(
                           // mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Contact ${practitionerData.name.split(" ")[0]}",
+                              "Contact ${widget.practitionerData.firstName}",
                               style: TextStyleHelper.t18b700().copyWith(
                                 color: AppColor.primaryColor,
                               ),
@@ -135,7 +162,8 @@ class PractitionerProfileScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 10),
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return ServicesTile(practitionerData: practitionerData);
+                        return ServicesTile(
+                            practitionerData: getPractitioners.first);
                       },
                       separatorBuilder: (context, index) {
                         return const Divider(
@@ -167,7 +195,8 @@ class PractitionerProfileScreen extends StatelessWidget {
     );
   }
 
-  Future<dynamic> contactBottomSheet(BuildContext context) {
+  Future<dynamic> contactBottomSheet(
+      BuildContext context, PractitionersModel memberData) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -192,23 +221,23 @@ class PractitionerProfileScreen extends StatelessWidget {
                     // contentPadding: EdgeInsets.zero,
                     // horizontalTitleGap: 0,
                     leading: const Icon(Icons.phone),
-                    title: const Text("+16465780322"),
+                    title: Text("+" + memberData.phoneno!),
                     onTap: () {},
                   ),
                 ),
                 Flexible(
                   child: ListTile(
                     leading: const Icon(Icons.mail),
-                    title: const Text("cohiho3677@lubde.com"),
+                    title: Text(memberData.email!),
                     onTap: () {},
                   ),
                 ),
-                ListTile(
-                  leading: const Icon(Icons.location_city),
-                  title: const Text(
-                      "1566 Calvin Street Baltimore Florida - 21212"),
-                  onTap: () {},
-                ),
+                if (memberData.physicaladdress != "undefined")
+                  ListTile(
+                    leading: const Icon(Icons.location_city),
+                    title: Text(memberData.physicaladdress!),
+                    onTap: () {},
+                  ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -303,7 +332,7 @@ class ServicesTile extends StatelessWidget {
     Key? key,
     required this.practitionerData,
   }) : super(key: key);
-  final PractitionersModel practitionerData;
+  final PractitionersModelTemp practitionerData;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -335,14 +364,107 @@ class ServicesTile extends StatelessWidget {
             ),
           ],
         ),
-        const IconTextWidget(
-          isOnline: true,
-          color: AppColor.grey,
-        ),
-        const IconTextWidget(
-          iconData: Icons.access_time_filled_outlined,
-          title: "1 hour",
-          color: AppColor.grey,
+        Row(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                IconTextWidget(
+                  isOnline: true,
+                  color: AppColor.grey,
+                ),
+                IconTextWidget(
+                  iconData: Icons.access_time_filled_outlined,
+                  title: "1 hour",
+                  color: AppColor.grey,
+                ),
+              ],
+            ),
+            const Spacer(),
+            ElevatedButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) {
+                    DateTime focusDay = DateTime.now();
+                    return StatefulBuilder(builder: (context, state) {
+                      return Container(
+                        padding: const EdgeInsets.all(20),
+                        child: SafeArea(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TableCalendar(
+                                focusedDay: focusDay,
+                                firstDay: DateTime(1999),
+                                lastDay: DateTime(3000),
+                                onDaySelected: (selectedDay, focusedDay) {
+                                  print(selectedDay);
+                                  state(() {
+                                    focusDay = selectedDay;
+                                    focusDay = focusedDay;
+                                  });
+                                },
+                                headerStyle: HeaderStyle(
+                                  formatButtonVisible: false,
+                                  titleCentered: true,
+                                  // titleTextStyle: TextStyleHelper.t16b700(),
+                                ),
+                                calendarStyle: CalendarStyle(
+                                  todayDecoration: BoxDecoration(
+                                    color: AppColor.primaryColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  selectedDecoration: BoxDecoration(
+                                    color: AppColor.primaryColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  selectedTextStyle: TextStyleHelper.t16b700(),
+                                  todayTextStyle: TextStyleHelper.t16b700(),
+                                ),
+                              ),
+                              // Text(
+                              //   "Contact Me",
+                              //   style: TextStyleHelper.t24b700(),
+                              // ),
+                              // Flexible(
+                              //   child: ListTile(
+                              //     // contentPadding: EdgeInsets.zero,
+                              //     // horizontalTitleGap: 0,
+                              //     leading: const Icon(Icons.phone),
+                              //     title: const Text("+16465780322"),
+                              //     onTap: () {},
+                              //   ),
+                              // ),
+
+                              // Container(
+                              //   height: 200,
+                              //   child: CupertinoDatePicker(
+                              //     onDateTimeChanged: (value) {},
+                              //     use24hFormat: true,
+
+                              //     mode: CupertinoDatePickerMode.time,
+
+                              //     // initialDate: DateTime.now(),
+                              //     // firstDate: DateTime(1999),
+                              //     // lastDate: DateTime(3000)
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        ),
+                      );
+                    });
+                  },
+                );
+              },
+              child: const Text(
+                "Book Now",
+                style: TextStyle(color: AppColor.white),
+              ),
+            ),
+          ],
         ),
       ],
     );

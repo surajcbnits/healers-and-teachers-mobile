@@ -158,27 +158,27 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
                   ],
                 ),
               ),
-              Container(
-                // color: Colors.yellow,
-                child: GridView(
-                  padding: EdgeInsets.zero,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.1,
-                  ),
-                  children: [
-                    ...List.generate(
-                      getPractitioners.length > 4 ? 4 : getPractitioners.length,
-                      (index) => PractitionersCard(
-                        data: getPractitioners[index],
-                        showDistance: true,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   // color: Colors.yellow,
+              //   child: GridView(
+              //     padding: EdgeInsets.zero,
+              //     physics: const NeverScrollableScrollPhysics(),
+              //     shrinkWrap: true,
+              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //       crossAxisCount: 2,
+              //       childAspectRatio: 1.1,
+              //     ),
+              //     children: [
+              //       ...List.generate(
+              //         getPractitioners.length > 4 ? 4 : getPractitioners.length,
+              //         (index) => PractitionersCard(
+              //           data: getPractitioners[index],
+              //           showDistance: true,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),

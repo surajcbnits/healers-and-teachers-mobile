@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:healersandteachers/constant/api_path.dart';
 import 'package:healersandteachers/widgets/icon_text_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../config/routes/routes.dart';
 import '../../../../constant/app_color.dart';
@@ -8,9 +10,27 @@ import '../../../../utils/screen_size.dart';
 import '../../../../widgets/chip.dart';
 import '../../../../widgets/circular_profile.dart';
 import '../../../paractitioners/model/pracitioners_model.dart';
+import '../../../paractitioners/providers/paractitioners_provider.dart';
 
-class NearByPractitionersWidget extends StatelessWidget {
+class NearByPractitionersWidget extends StatefulWidget {
   const NearByPractitionersWidget({super.key});
+
+  @override
+  State<NearByPractitionersWidget> createState() =>
+      _NearByPractitionersWidgetState();
+}
+
+class _NearByPractitionersWidgetState extends State<NearByPractitionersWidget> {
+  bool isLoading = true;
+  @override
+  void initState() {
+    Provider.of<PractitionersProvider>(context, listen: false)
+        .fetchPractitionersList()
+        .whenComplete(() => setState(() {
+              isLoading = false;
+            }));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,32 +60,39 @@ class NearByPractitionersWidget extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          margin: const EdgeInsets.only(bottom: 10),
-          height: screenWidth(context) * 0.45,
-          width: screenWidth(context),
-          // color: Colors.red,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount:
-                getPractitioners.length, //> 5 ? 5 : getPractitioners.length,
-            itemBuilder: (context, index) {
-              // if (index == getPractitioners.length) {
-              //   return Padding(
-              //     padding: EdgeInsets.only(
-              //         left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
-              //     child: const ViewAllButton(),
-              //   );
-              // }
-              final PractitionersModel data = getPractitioners[index];
-              return Padding(
-                padding: EdgeInsets.only(
-                    left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
-                child: PractitionersCard(data: data),
+        if (isLoading == false)
+          Consumer<PractitionersProvider>(
+            builder: (context, p, child) {
+              return Container(
+                margin: const EdgeInsets.only(bottom: 10),
+                height: screenWidth(context) * 0.45,
+                width: screenWidth(context),
+                // color: Colors.red,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: p.practitionersData.practitionerList!
+                      .length, //> 5 ? 5 : getPractitioners.length,
+                  itemBuilder: (context, index) {
+                    // if (index == getPractitioners.length) {
+                    //   return Padding(
+                    //     padding: EdgeInsets.only(
+                    //         left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
+                    //     child: const ViewAllButton(),
+                    //   );
+                    // }
+                    final PractitionersModel data =
+                        p.practitionersData.practitionerList![index];
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          left: index == 0 ? 16 : 10,
+                          right: index == 5 ? 16 : 10),
+                      child: PractitionersCard(data: data),
+                    );
+                  },
+                ),
               );
             },
           ),
-        ),
       ],
     );
   }
@@ -108,14 +135,15 @@ class PractitionersCard extends StatelessWidget {
           children: [
             OuterCircularProfile(
               radius: screenWidth(context) * 0.22,
-              image: NetworkImage(data.image),
+              image: NetworkImage(ApiPath.serverDomain + data.image!),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Text(
-                data.name,
+                "${data.firstName!} ${data.lastName!}",
                 maxLines: 1,
                 style: TextStyleHelper.t18b700(),
+                textAlign: TextAlign.center,
               ),
             ),
             showDistance
@@ -130,11 +158,12 @@ class PractitionersCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           ...List.generate(
-                            data.keyWords.length,
+                            getPractitioners[0].keyWords.length,
                             (index) => Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 2.5),
-                              child: CustomChip(title: data.keyWords[index]),
+                              child: CustomChip(
+                                  title: getPractitioners[0].keyWords[index]),
                             ),
                           ),
                         ],

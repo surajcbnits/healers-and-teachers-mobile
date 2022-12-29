@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:healersandteachers/config/routes/routes.dart';
 import 'package:healersandteachers/helper/text_style.dart';
 import 'package:healersandteachers/utils/screen_size.dart';
 import 'package:healersandteachers/widgets/chip.dart';
@@ -75,7 +76,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                 ),
                 const Spacer(),
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.bookingScreen);
+                  },
                   icon: const Icon(Icons.star_rounded),
                   label: Text(
                     "Interested",

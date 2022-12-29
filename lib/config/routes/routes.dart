@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healersandteachers/feature/location/screen/locartion.dart';
 
+import '../../feature/booking/screen/booking_screen.dart';
 import '../../feature/categories/model/categories_model.dart';
 import '../../feature/categories/screen/categories_screen.dart';
 import '../../feature/categories_detail/screen/categories_detail_screen.dart';
@@ -24,6 +25,7 @@ class Routes {
   static const String practitionerProfileScreen = '/practitionerProfileScreen';
   static const String categoriesDetailScreen = '/categoriesDetailScreen';
   static const String eventDetailScreen = '/eventDetailScreen';
+  static const String bookingScreen = '/bookingScreen';
 }
 
 class RouteGenerator {
@@ -50,7 +52,8 @@ class RouteGenerator {
         if (settings.arguments != null) {
           return MaterialPageRoute(
               builder: (context) => PractitionerProfileScreen(
-                    practitionerData: settings.arguments as PractitionersModel,
+                    practitionerData:
+                        settings.arguments as PractitionersModel,
                   ));
         }
         return _errorRoute(errorText: "dataErrorInRoute");
@@ -70,6 +73,8 @@ class RouteGenerator {
                   ));
         }
         return _errorRoute(errorText: "dataErrorInRoute");
+      case Routes.bookingScreen:
+        return MaterialPageRoute(builder: (context) => const BookingScreen());
       default:
         return _errorRoute();
     }
