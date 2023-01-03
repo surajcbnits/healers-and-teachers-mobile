@@ -1,3 +1,5 @@
+import 'package:healersandteachers/constant/api_path.dart';
+
 class PractitionersModelTemp {
   final String name;
   final String image;
@@ -97,7 +99,7 @@ class PractitionersModel {
     facebook = json['facebook'];
     instagram = json['instagram'];
     twitter = json['twitter'];
-    image = json['image'];
+    image = json['image'] != null ? ApiPath.baseURL + json['image'] : null;
     physicaladdress = json['physicaladdress'];
     ip = json['ip'];
     virtualsessions = json['virtualsessions'];

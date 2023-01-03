@@ -19,7 +19,7 @@ class EventCard extends StatelessWidget {
 
   // final int index;
   final bool vertical;
-  final EventModel eventData;
+  final EventModelTemp eventData;
 
   String convertDate(DateTime date) {
     // date = date.toLocal();

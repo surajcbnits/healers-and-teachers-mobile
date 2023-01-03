@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:healersandteachers/helper/text_style.dart';
 import 'package:healersandteachers/widgets/icon_text_widget.dart';
 

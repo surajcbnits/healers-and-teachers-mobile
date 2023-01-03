@@ -29,6 +29,11 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
   bool isLoading = true;
   @override
   void initState() {
+    _getData();
+    super.initState();
+  }
+
+  _getData() {
     Provider.of<PractitionersProvider>(context, listen: false)
         .fetchPractitioners(widget.practitionerData.username!)
         .then((value) {
@@ -38,7 +43,6 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
     }).whenComplete(() => setState(() {
               isLoading = false;
             }));
-    super.initState();
   }
 
   @override
@@ -59,8 +63,7 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
                 decoration: BoxDecoration(
                   color: Colors.red,
                   image: DecorationImage(
-                    image: NetworkImage(
-                        ApiPath.serverDomain + widget.practitionerData.image!),
+                    image: NetworkImage(widget.practitionerData.image!),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -173,6 +176,15 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
                       },
                       itemCount: 3,
                     ),
+                    if (widget.practitionerData.qualification !=
+                        "undefined") ...[
+                      titleText("Training & Credentials"),
+                      Text(
+                        widget.practitionerData.qualification!,
+                        style: TextStyleHelper.t14b400()
+                            .copyWith(color: AppColor.grey, height: 1.4),
+                      ),
+                    ],
                     titleText("Events"),
                     EventCard(eventData: eventsList[0]),
                     titleText("Reviews"),

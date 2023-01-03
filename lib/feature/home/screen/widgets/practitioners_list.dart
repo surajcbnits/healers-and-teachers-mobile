@@ -34,67 +34,70 @@ class _NearByPractitionersWidgetState extends State<NearByPractitionersWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // const SizedBox(height: 10),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return isLoading == false
+        ? Column(
             children: [
-              Text(
-                "Nearby Practitioners",
-                style: TextStyleHelper.t20b700(),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, Routes.practitionerScreen);
-                },
-                child: Text(
-                  "View all",
-                  style: TextStyleHelper.t14b700().copyWith(
-                    color: AppColor.primaryColor,
-                  ),
+              // const SizedBox(height: 10),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Nearby Practitioners",
+                      style: TextStyleHelper.t20b700(),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.practitionerScreen);
+                      },
+                      child: Text(
+                        "View all",
+                        style: TextStyleHelper.t14b700().copyWith(
+                          color: AppColor.primaryColor,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+              ),
+
+              Consumer<PractitionersProvider>(
+                builder: (context, p, child) {
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    height: screenWidth(context) * 0.48,
+                    width: screenWidth(context),
+                    // color: Colors.red,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: p.practitionersData.practitionerList!
+                          .length, //> 5 ? 5 : getPractitioners.length,
+                      itemBuilder: (context, index) {
+                        // if (index == getPractitioners.length) {
+                        //   return Padding(
+                        //     padding: EdgeInsets.only(
+                        //         left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
+                        //     child: const ViewAllButton(),
+                        //   );
+                        // }
+                        final PractitionersModel data =
+                            p.practitionersData.practitionerList![index];
+                        return Padding(
+                          padding: EdgeInsets.only(
+                              left: index == 0 ? 16 : 10,
+                              right: index == 5 ? 16 : 10),
+                          child: PractitionersCard(data: data),
+                        );
+                      },
+                    ),
+                  );
+                },
               ),
             ],
-          ),
-        ),
-        if (isLoading == false)
-          Consumer<PractitionersProvider>(
-            builder: (context, p, child) {
-              return Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                height: screenWidth(context) * 0.45,
-                width: screenWidth(context),
-                // color: Colors.red,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: p.practitionersData.practitionerList!
-                      .length, //> 5 ? 5 : getPractitioners.length,
-                  itemBuilder: (context, index) {
-                    // if (index == getPractitioners.length) {
-                    //   return Padding(
-                    //     padding: EdgeInsets.only(
-                    //         left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
-                    //     child: const ViewAllButton(),
-                    //   );
-                    // }
-                    final PractitionersModel data =
-                        p.practitionersData.practitionerList![index];
-                    return Padding(
-                      padding: EdgeInsets.only(
-                          left: index == 0 ? 16 : 10,
-                          right: index == 5 ? 16 : 10),
-                      child: PractitionersCard(data: data),
-                    );
-                  },
-                ),
-              );
-            },
-          ),
-      ],
-    );
+          )
+        : const SizedBox();
   }
 }
 
@@ -130,12 +133,12 @@ class PractitionersCard extends StatelessWidget {
           // ),
         ),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             OuterCircularProfile(
               radius: screenWidth(context) * 0.22,
-              image: NetworkImage(ApiPath.serverDomain + data.image!),
+              image: NetworkImage(data.image!),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),

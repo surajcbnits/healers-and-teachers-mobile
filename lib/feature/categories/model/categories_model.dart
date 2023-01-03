@@ -1,4 +1,3 @@
-import '../../../constant/app_image.dart';
 
 class CategoriesModel {
   final String name;

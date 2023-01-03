@@ -52,8 +52,7 @@ class RouteGenerator {
         if (settings.arguments != null) {
           return MaterialPageRoute(
               builder: (context) => PractitionerProfileScreen(
-                    practitionerData:
-                        settings.arguments as PractitionersModel,
+                    practitionerData: settings.arguments as PractitionersModel,
                   ));
         }
         return _errorRoute(errorText: "dataErrorInRoute");
@@ -69,7 +68,7 @@ class RouteGenerator {
         if (settings.arguments != null) {
           return MaterialPageRoute(
               builder: (context) => EventDetailScreen(
-                    eventData: settings.arguments as EventModel,
+                    eventData: settings.arguments as EventModelTemp,
                   ));
         }
         return _errorRoute(errorText: "dataErrorInRoute");

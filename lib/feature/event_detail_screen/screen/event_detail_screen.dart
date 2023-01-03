@@ -14,7 +14,7 @@ import '../../paractitioners/model/pracitioners_model.dart';
 
 class EventDetailScreen extends StatefulWidget {
   const EventDetailScreen({super.key, required this.eventData});
-  final EventModel eventData;
+  final EventModelTemp eventData;
 
   @override
   State<EventDetailScreen> createState() => _EventDetailScreenState();

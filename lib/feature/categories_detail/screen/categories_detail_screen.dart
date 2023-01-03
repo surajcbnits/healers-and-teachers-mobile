@@ -3,12 +3,10 @@ import 'package:healersandteachers/feature/events/model/events_model.dart';
 import 'package:healersandteachers/feature/events/screen/widgets/event_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../config/routes/routes.dart';
 import '../../../constant/app_color.dart';
 import '../../../helper/text_style.dart';
 import '../../../utils/screen_size.dart';
 import '../../categories/model/categories_model.dart';
-import '../../home/screen/widgets/practitioners_list.dart';
 import '../../paractitioners/model/pracitioners_model.dart';
 
 class CategoriesDetailScreen extends StatefulWidget {
