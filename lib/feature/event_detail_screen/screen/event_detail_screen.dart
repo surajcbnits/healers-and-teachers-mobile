@@ -13,8 +13,11 @@ import '../../events/model/events_model.dart';
 import '../../paractitioners/model/pracitioners_model.dart';
 
 class EventDetailScreen extends StatefulWidget {
-  const EventDetailScreen({super.key, required this.eventData});
-  final EventModelTemp eventData;
+  const EventDetailScreen({
+    super.key,
+    required this.eventData,
+  });
+  final EventModel eventData;
 
   @override
   State<EventDetailScreen> createState() => _EventDetailScreenState();
@@ -28,11 +31,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
     return "${formattedDate}";
   }
 
-  String convertTime(DateTime date) {
-    // date = date.toLocal();
-    // 7:00  AM To 8:00 AM PST
-    String formattedTime = DateFormat('h:mm a').format(date);
-    return "${formattedTime} To ${formattedTime} PST";
+  String convertTime(DateTime startTime, DateTime endTime) {
+    String formattedStartTime = DateFormat('h:mm a').format(startTime);
+    String formattedEndTime = DateFormat('h:mm a').format(endTime);
+    return "${formattedStartTime} To ${formattedEndTime} PST";
   }
 
   @override
@@ -104,14 +106,14 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                      image: NetworkImage(widget.eventData.imageUrl),
+                      image: NetworkImage(widget.eventData.image!),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  widget.eventData.title,
+                  widget.eventData.name!,
                   style: TextStyleHelper.t24b700(),
                 ),
                 const SizedBox(height: 10),
@@ -122,8 +124,9 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   ),
                 ),
                 CustomListTile(
-                  title: convertDate(widget.eventData.dateTime),
-                  subtitle: convertTime(widget.eventData.dateTime),
+                  title: convertDate(widget.eventData.startdatetime!),
+                  subtitle: convertTime(widget.eventData.startdatetime!,
+                      widget.eventData.enddatetime!),
                   // leadingIcon: Icons.calendar_today,
                 ),
                 const CustomListTile(
@@ -173,7 +176,7 @@ class EventPractitionerInterestTile extends StatelessWidget {
             children: [
               OuterCircularProfile(
                 radius: screenWidth(context) * 0.17,
-                image: NetworkImage(widget.eventData.imageUrl),
+                image: NetworkImage(widget.eventData.image!),
               ),
               const SizedBox(width: 10),
               Column(
@@ -220,7 +223,7 @@ class EventPractitionerInterestTile extends StatelessWidget {
                           child: CircularProfile(
                             radius: 12,
                             showShadow: false,
-                            image: NetworkImage(widget.eventData.imageUrl),
+                            image: NetworkImage(widget.eventData.image!),
                           ),
                         );
                       }),

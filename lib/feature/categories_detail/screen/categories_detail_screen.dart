@@ -201,27 +201,28 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
                   ],
                 ),
               ),
-              GridView(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.65,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 5,
-                ),
-                children: [
-                  ...List.generate(
-                    getPractitioners
-                        .length, //> 4 ? 4 : getPractitioners.length,
-                    (index) => EventCard(
-                      eventData: eventsList[index],
-                      vertical: true,
-                    ),
-                  ),
-                ],
-              ),
+              //NOTE: Event User info not on api
+              // GridView(
+              //   padding: EdgeInsets.symmetric(horizontal: 16),
+              //   physics: const NeverScrollableScrollPhysics(),
+              //   shrinkWrap: true,
+              //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //     crossAxisCount: 2,
+              //     childAspectRatio: 0.65,
+              //     crossAxisSpacing: 20,
+              //     mainAxisSpacing: 5,
+              //   ),
+              //   children: [
+              //     ...List.generate(
+              //       getPractitioners
+              //           .length, //> 4 ? 4 : getPractitioners.length,
+              //       (index) => EventCard(
+              //         eventData: eventsList[index],
+              //         vertical: true,
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),

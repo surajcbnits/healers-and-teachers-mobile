@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healersandteachers/utils/toCapitalized.dart';
 
 import '../constant/app_color.dart';
 import '../helper/text_style.dart';
@@ -22,8 +23,7 @@ class CustomChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Chip(
-      // padding: EdgeInsets.all(19),
-      deleteIcon: Icon(Icons.close),
+      deleteIcon: const Icon(Icons.close),
       labelStyle: TextStyleHelper.t14b600()
           .copyWith(color: labelColor ?? AppColor.primaryColor),
       deleteIconColor: AppColor.white,
@@ -37,7 +37,7 @@ class CustomChip extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
       ),
-      label: Text(title),
+      label: Text(title.toCapitalize()),
     );
   }
 }

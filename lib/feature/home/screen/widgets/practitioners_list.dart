@@ -45,7 +45,7 @@ class _NearByPractitionersWidgetState extends State<NearByPractitionersWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Nearby Practitioners",
+                      "Practitioners",
                       style: TextStyleHelper.t20b700(),
                     ),
                     TextButton(
@@ -161,12 +161,12 @@ class PractitionersCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           ...List.generate(
-                            getPractitioners[0].keyWords.length,
+                            data.wellnessKeywords!.length,
                             (index) => Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 2.5),
                               child: CustomChip(
-                                  title: getPractitioners[0].keyWords[index]),
+                                  title: data.wellnessKeywords![index].name!),
                             ),
                           ),
                         ],

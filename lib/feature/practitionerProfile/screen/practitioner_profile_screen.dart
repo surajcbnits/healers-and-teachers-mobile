@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:healersandteachers/constant/api_path.dart';
-import 'package:healersandteachers/constant/app_color.dart';
-import 'package:healersandteachers/helper/text_style.dart';
-import 'package:healersandteachers/utils/screen_size.dart';
-import 'package:healersandteachers/widgets/icon_text_widget.dart';
-import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
 
+import 'package:provider/provider.dart';
+
+import '../../../constant/app_color.dart';
+import '../../../helper/text_style.dart';
+import '../../../utils/screen_size.dart';
 import '../../../widgets/chip.dart';
+import '../../../widgets/icon_text_widget.dart';
+import '../../events/Provider/events_provider.dart';
 import '../../events/model/events_model.dart';
 import '../../events/screen/widgets/event_card.dart';
 import '../../paractitioners/model/pracitioners_model.dart';
-import '../../paractitioners/providers/paractitioners_provider.dart';
+import 'components/review_tile.dart';
+import 'components/service_tile.dart';
 
 class PractitionerProfileScreen extends StatefulWidget {
   const PractitionerProfileScreen({super.key, required this.practitionerData});
@@ -26,7 +27,10 @@ class PractitionerProfileScreen extends StatefulWidget {
 
 class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
   late PractitionersModel memberData;
+  late List<EventModel> eventList;
   bool isLoading = true;
+  bool isEventLoading = true;
+
   @override
   void initState() {
     _getData();
@@ -34,22 +38,18 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
   }
 
   _getData() {
-    Provider.of<PractitionersProvider>(context, listen: false)
-        .fetchPractitioners(widget.practitionerData.username!)
+    /// Get Event Data
+    Provider.of<EventProvider>(context, listen: false)
+        .fetchEvents(widget.practitionerData.username!)
         .then((value) {
       setState(() {
-        memberData = value!;
+        eventList = value!;
       });
-    }).whenComplete(() => setState(() {
-              isLoading = false;
-            }));
+    }).whenComplete(() => setState(() => isEventLoading = false));
   }
 
   @override
   Widget build(BuildContext context) {
-    // final args =
-    //     ModalRoute.of(context)!.settings.arguments as PractitionersModel;
-    // log(practitionerData.name);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -106,23 +106,23 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
                         color: AppColor.grey,
                       ),
                     ),
-                    if (!isLoading)
-                      Wrap(
-                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        spacing: 10,
-                        children: [
-                          ...List.generate(
-                            memberData.wellnesskeywords!.length,
-                            (index) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 2.5),
-                              child: CustomChip(
-                                  title: memberData
-                                      .wellnesskeywords![index].name!),
-                            ),
+                    // if (!isLoading)
+                    Wrap(
+                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      spacing: 10,
+                      children: [
+                        ...List.generate(
+                          widget.practitionerData.wellnessKeywords!.length,
+                          (index) => Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 2.5),
+                            child: CustomChip(
+                                title: widget.practitionerData
+                                    .wellnessKeywords![index].name!),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
                     // const SizedBox(height: 10),
                     IconTextWidget(
                       title:
@@ -186,7 +186,15 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
                       ),
                     ],
                     titleText("Events"),
-                    EventCard(eventData: eventsList[0]),
+                    if (isEventLoading)
+                      const Center(child: CircularProgressIndicator())
+                    else
+                      ...List.generate(
+                        eventList.length,
+                        (index) => EventCard(eventData: eventList[index]),
+                      ),
+
+                    // EventCard(eventData: eventsList[0]),
                     titleText("Reviews"),
                     ListView.builder(
                       shrinkWrap: true,
@@ -289,194 +297,8 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
           padding: const EdgeInsets.only(top: 30.0, bottom: 8),
           child: Text(
             title,
-            style: TextStyleHelper.t20b700(),
+            style: TextStyleHelper.t24b700(),
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class ReviewTile extends StatelessWidget {
-  const ReviewTile({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(
-            backgroundColor: AppColor.primaryColor.withOpacity(.12),
-            radius: 30,
-            backgroundImage: const NetworkImage(
-                "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZSUyMHBob3RvfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60"),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "John Doe",
-                  style: TextStyleHelper.t16b700(),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Sed consequat eget tellus eget ullamcorper. Sed finibus  cursus turpis et pellentesque. Suspendisse sollicitudin  posuere nunc, eu pharetra diam ornare vitae.",
-                  style:
-                      TextStyleHelper.t14b400().copyWith(color: AppColor.grey),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ServicesTile extends StatelessWidget {
-  const ServicesTile({
-    Key? key,
-    required this.practitionerData,
-  }) : super(key: key);
-  final PractitionersModelTemp practitionerData;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Discovery call",
-              style: TextStyleHelper.t16b700(),
-            ),
-            Text(
-              "Free",
-              style: TextStyleHelper.t16b600().copyWith(
-                color: AppColor.primaryColor,
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            ...List.generate(
-              practitionerData.keyWords.length,
-              (index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 2.5),
-                child: CustomChip(title: practitionerData.keyWords[index]),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                IconTextWidget(
-                  isOnline: true,
-                  color: AppColor.grey,
-                ),
-                IconTextWidget(
-                  iconData: Icons.access_time_filled_outlined,
-                  title: "1 hour",
-                  color: AppColor.grey,
-                ),
-              ],
-            ),
-            const Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) {
-                    DateTime focusDay = DateTime.now();
-                    return StatefulBuilder(builder: (context, state) {
-                      return Container(
-                        padding: const EdgeInsets.all(20),
-                        child: SafeArea(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              TableCalendar(
-                                focusedDay: focusDay,
-                                firstDay: DateTime(1999),
-                                lastDay: DateTime(3000),
-                                onDaySelected: (selectedDay, focusedDay) {
-                                  print(selectedDay);
-                                  state(() {
-                                    focusDay = selectedDay;
-                                    focusDay = focusedDay;
-                                  });
-                                },
-                                headerStyle: HeaderStyle(
-                                  formatButtonVisible: false,
-                                  titleCentered: true,
-                                  // titleTextStyle: TextStyleHelper.t16b700(),
-                                ),
-                                calendarStyle: CalendarStyle(
-                                  todayDecoration: BoxDecoration(
-                                    color: AppColor.primaryColor,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  selectedDecoration: BoxDecoration(
-                                    color: AppColor.primaryColor,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  selectedTextStyle: TextStyleHelper.t16b700(),
-                                  todayTextStyle: TextStyleHelper.t16b700(),
-                                ),
-                              ),
-                              // Text(
-                              //   "Contact Me",
-                              //   style: TextStyleHelper.t24b700(),
-                              // ),
-                              // Flexible(
-                              //   child: ListTile(
-                              //     // contentPadding: EdgeInsets.zero,
-                              //     // horizontalTitleGap: 0,
-                              //     leading: const Icon(Icons.phone),
-                              //     title: const Text("+16465780322"),
-                              //     onTap: () {},
-                              //   ),
-                              // ),
-
-                              // Container(
-                              //   height: 200,
-                              //   child: CupertinoDatePicker(
-                              //     onDateTimeChanged: (value) {},
-                              //     use24hFormat: true,
-
-                              //     mode: CupertinoDatePickerMode.time,
-
-                              //     // initialDate: DateTime.now(),
-                              //     // firstDate: DateTime(1999),
-                              //     // lastDate: DateTime(3000)
-                              //   ),
-                              // ),
-                            ],
-                          ),
-                        ),
-                      );
-                    });
-                  },
-                );
-              },
-              child: const Text(
-                "Book Now",
-                style: TextStyle(color: AppColor.white),
-              ),
-            ),
-          ],
         ),
       ],
     );

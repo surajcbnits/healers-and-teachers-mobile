@@ -67,15 +67,17 @@ class EventScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: eventsList.length,
-                    itemBuilder: (context, index) {
-                      final data = eventsList[index];
-                      return EventCard(eventData: data);
-                    },
-                  ),
-                ),
+                
+              //NOTE: Event User info not on api
+                // Expanded(
+                //   child: ListView.builder(
+                //     itemCount: eventsList.length,
+                //     itemBuilder: (context, index) {
+                //       final data = eventsList[index];
+                //       return EventCard(eventData: data);
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ),

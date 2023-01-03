@@ -1,5 +1,7 @@
 import 'package:healersandteachers/constant/api_path.dart';
 
+import '../../events/model/events_model.dart';
+
 class PractitionersModelTemp {
   final String name;
   final String image;
@@ -58,7 +60,7 @@ class PractitionersModel {
   String? physicaladdress;
   String? ip;
   String? virtualsessions;
-  List<Wellnesskeywords>? wellnesskeywords;
+  List<WellnessKeywords>? wellnessKeywords;
 
   PractitionersModel(
       {this.id,
@@ -103,10 +105,10 @@ class PractitionersModel {
     physicaladdress = json['physicaladdress'];
     ip = json['ip'];
     virtualsessions = json['virtualsessions'];
-    if (json['wellnesskeywords'] != null) {
-      wellnesskeywords = <Wellnesskeywords>[];
-      json['wellnesskeywords'].forEach((v) {
-        wellnesskeywords!.add(new Wellnesskeywords.fromJson(v));
+    if (json['wellnessKeywords'] != null) {
+      wellnessKeywords = <WellnessKeywords>[];
+      json['wellnessKeywords'].forEach((v) {
+        wellnessKeywords!.add(new WellnessKeywords.fromJson(v));
       });
     }
   }
@@ -133,32 +135,14 @@ class PractitionersModel {
     data['physicaladdress'] = this.physicaladdress;
     data['ip'] = this.ip;
     data['virtualsessions'] = this.virtualsessions;
-    if (this.wellnesskeywords != null) {
-      data['wellnesskeywords'] =
-          this.wellnesskeywords!.map((v) => v.toJson()).toList();
+    if (this.wellnessKeywords != null) {
+      data['wellnessKeywords'] =
+          this.wellnessKeywords!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Wellnesskeywords {
-  String? name;
-  int? id;
-
-  Wellnesskeywords({this.name, this.id});
-
-  Wellnesskeywords.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    id = json['id'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['id'] = this.id;
-    return data;
-  }
-}
 
 List<PractitionersModelTemp> getPractitioners = [
   PractitionersModelTemp(

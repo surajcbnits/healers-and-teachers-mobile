@@ -68,7 +68,7 @@ class RouteGenerator {
         if (settings.arguments != null) {
           return MaterialPageRoute(
               builder: (context) => EventDetailScreen(
-                    eventData: settings.arguments as EventModelTemp,
+                    eventData: settings.arguments as EventModel,
                   ));
         }
         return _errorRoute(errorText: "dataErrorInRoute");

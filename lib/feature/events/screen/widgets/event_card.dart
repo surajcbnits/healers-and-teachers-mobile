@@ -19,12 +19,12 @@ class EventCard extends StatelessWidget {
 
   // final int index;
   final bool vertical;
-  final EventModelTemp eventData;
+  final EventModel eventData;
 
-  String convertDate(DateTime date) {
+  String convertDate(DateTime startDate) {
     // date = date.toLocal();
-    String formattedDate = DateFormat('dd MMM yy').format(date);
-    String formattedTime = DateFormat('h:ma').format(date);
+    String formattedDate = DateFormat('dd MMM yy').format(startDate);
+    String formattedTime = DateFormat('h:mma').format(startDate);
     return "${formattedDate} • ${formattedTime}";
   }
 
@@ -41,8 +41,7 @@ class EventCard extends StatelessWidget {
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconTextWidget(
-                      title: eventData.location, isOnline: eventData.isVirtual),
+                  IconTextWidget(title: eventData.type!, isOnline: true),
                   const SizedBox(height: 10),
                   _buildImage(context),
                   const SizedBox(height: 10),
@@ -75,9 +74,10 @@ class EventCard extends StatelessWidget {
         children: [
           if (!vertical)
             IconTextWidget(
-                title: eventData.location, isOnline: eventData.isVirtual),
+                title: "${eventData.city!}, ${eventData.state!}",
+                isOnline: eventData.type == "virtual"),
           Text(
-            eventData.title,
+            eventData.name!,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyleHelper.t18b700(),
@@ -104,13 +104,14 @@ class EventCard extends StatelessWidget {
                   ),
                 ),
                 child: CircleAvatar(
-                  // radius: 40,
-                  backgroundImage: NetworkImage(eventData.eventBy.profileImage),
-                ),
+                    // radius: 40,
+                    // backgroundImage: NetworkImage(eventData.eventBy.profileImage),
+                    ),
               ),
               const SizedBox(width: 10),
               Text(
-                eventData.eventBy.name,
+                // eventData.eventBy.name,
+                "name",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyleHelper.t14b600().copyWith(
@@ -132,15 +133,15 @@ class EventCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: AppColor.primaryColor,
+        color: AppColor.secondaryColor,
         image: DecorationImage(
-          image: NetworkImage(eventData.imageUrl),
+          image: NetworkImage(eventData.image!),
           fit: BoxFit.cover,
         ),
       ),
       child: TextOverImage(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-        title: convertDate(eventData.dateTime),
+        title: convertDate(eventData.startdatetime!),
         style: TextStyleHelper.t14b700().copyWith(
           color: AppColor.white,
         ),

@@ -1,5 +1,7 @@
 import 'package:healersandteachers/feature/home/domain/model/user_model.dart';
 
+import '../../../constant/api_path.dart';
+
 class EventModelTemp {
   String imageUrl;
   String title;
@@ -48,8 +50,8 @@ class EventModel {
   String? name;
   String? image;
   String? description;
-  String? startdatetime;
-  String? enddatetime;
+  DateTime? startdatetime;
+  DateTime? enddatetime;
   String? type;
   String? city;
   String? state;
@@ -94,10 +96,10 @@ class EventModel {
   EventModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    image = json['image'];
+    image = json['image'] != null ? ApiPath.baseURL + json['image'] : null;
     description = json['description'];
-    startdatetime = json['startdatetime'];
-    enddatetime = json['enddatetime'];
+    startdatetime = DateTime.parse(json['startdatetime']);
+    enddatetime = DateTime.parse(json['enddatetime']);
     type = json['type'];
     city = json['city'];
     state = json['state'];

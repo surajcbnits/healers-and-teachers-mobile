@@ -46,18 +46,20 @@ class _EventsListTileWidgetState extends State<EventsListTileWidget> {
           ),
         ),
         // for (var i = 0; i < length; i++) EventCard(index: i)
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: eventsList.length > 3 ? 3 : eventsList.length,
-          itemBuilder: (context, index) {
-            final data = eventsList[index];
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: EventCard(eventData: data),
-            );
-          },
-        ),
+
+        //NOTE: Event User info not on api
+        // ListView.builder(
+        //   shrinkWrap: true,
+        //   physics: const NeverScrollableScrollPhysics(),
+        //   itemCount: eventsList.length > 3 ? 3 : eventsList.length,
+        //   itemBuilder: (context, index) {
+        //     final data = eventsList[index];
+        //     return Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        //       child: EventCard(eventData: data),
+        //     );
+        //   },
+        // ),
       ],
     );
   }
