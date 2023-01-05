@@ -6,7 +6,7 @@ import 'package:healersandteachers/helper/text_style.dart';
 import 'package:provider/provider.dart';
 
 import 'config/routes/routes.dart';
-import 'feature/home/screen/main_bottom_screen.dart';
+import 'feature/home/view/main_bottom_screen.dart';
 import 'feature/paractitioners/providers/paractitioners_provider.dart';
 
 void main() {

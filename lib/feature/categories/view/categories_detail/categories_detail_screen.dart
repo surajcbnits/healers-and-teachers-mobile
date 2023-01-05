@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:healersandteachers/feature/events/model/events_model.dart';
-import 'package:healersandteachers/feature/events/screen/widgets/event_card.dart';
+import 'package:healersandteachers/feature/events/view/event_screen/widgets/event_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../constant/app_color.dart';
-import '../../../helper/text_style.dart';
-import '../../../utils/screen_size.dart';
-import '../../categories/model/categories_model.dart';
-import '../../paractitioners/model/pracitioners_model.dart';
+import '../../../../constant/app_color.dart';
+import '../../../../helper/text_style.dart';
+import '../../../../utils/screen_size.dart';
+import '../../model/categories_model.dart';
+import '../../../paractitioners/model/pracitioners_model.dart';
 
 class CategoriesDetailScreen extends StatefulWidget {
   const CategoriesDetailScreen({super.key, required this.categoriesModel});

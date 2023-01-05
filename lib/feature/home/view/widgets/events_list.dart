@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../../config/routes/routes.dart';
 import '../../../../constant/app_color.dart';
 import '../../../../helper/text_style.dart';
-import '../../../events/screen/widgets/event_card.dart';
+import '../../../events/view/event_screen/widgets/event_card.dart';
 
 class EventsListTileWidget extends StatefulWidget {
   const EventsListTileWidget({super.key});

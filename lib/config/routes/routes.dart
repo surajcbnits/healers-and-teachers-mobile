@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:healersandteachers/feature/location/screen/locartion.dart';
+import 'package:healersandteachers/feature/location/view/locartion.dart';
 
-import '../../feature/booking/screen/booking_screen.dart';
+import '../../feature/booking/view/booking_screen.dart';
 import '../../feature/categories/model/categories_model.dart';
-import '../../feature/categories/screen/categories_screen.dart';
-import '../../feature/categories_detail/screen/categories_detail_screen.dart';
-import '../../feature/event_detail_screen/screen/event_detail_screen.dart';
+import '../../feature/categories/view/categories_screen/categories_screen.dart';
+import '../../feature/categories/view/categories_detail/categories_detail_screen.dart';
+import '../../feature/events/view/event_detail_screen/event_detail_screen.dart';
 import '../../feature/events/model/events_model.dart';
-import '../../feature/events/screen/events_screen.dart';
-import '../../feature/home/screen/home_screen.dart';
-import '../../feature/home/screen/main_bottom_screen.dart';
+import '../../feature/events/view/event_screen/events_screen.dart';
+import '../../feature/home/view/home_screen.dart';
+import '../../feature/home/view/main_bottom_screen.dart';
 import '../../feature/paractitioners/model/pracitioners_model.dart';
-import '../../feature/paractitioners/screen/practitioners_screen.dart';
-import '../../feature/practitionerProfile/screen/practitioner_profile_screen.dart';
+import '../../feature/paractitioners/view/practitioner_screen/practitioners_screen.dart';
+import '../../feature/paractitioners/view/practitioner_profile/practitioner_profile_screen.dart';
 
 class Routes {
   Routes._();

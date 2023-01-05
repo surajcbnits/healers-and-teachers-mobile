@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../../../constant/app_color.dart';
 import '../../../helper/text_style.dart';
-import '../../events/screen/events_screen.dart';
-import '../../paractitioners/screen/practitioners_screen.dart';
+import '../../events/view/event_screen/events_screen.dart';
+import '../../paractitioners/view/practitioner_screen/practitioners_screen.dart';
 import 'home_screen copy.dart';
 import 'home_screen.dart';
 

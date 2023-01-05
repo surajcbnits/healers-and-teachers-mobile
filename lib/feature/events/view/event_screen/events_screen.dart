@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../constant/app_color.dart';
-import '../../../helper/text_style.dart';
-import '../../../widgets/chip.dart';
-import '../../../widgets/location_tile.dart';
-import '../Provider/events_provider.dart';
-import '../model/events_model.dart';
+import '../../../../constant/app_color.dart';
+import '../../../../helper/text_style.dart';
+import '../../../../widgets/chip.dart';
+import '../../../../widgets/location_tile.dart';
+import '../../Provider/events_provider.dart';
+import '../../model/events_model.dart';
 import 'widgets/event_card.dart';
 
 class EventScreen extends StatefulWidget {

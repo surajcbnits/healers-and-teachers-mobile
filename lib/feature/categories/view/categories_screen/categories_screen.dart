@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:healersandteachers/constant/app_color.dart';
 import 'package:healersandteachers/helper/text_style.dart';
 
-import '../../../config/routes/routes.dart';
-import '../model/categories_model.dart';
+import '../../../../config/routes/routes.dart';
+import '../../model/categories_model.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});

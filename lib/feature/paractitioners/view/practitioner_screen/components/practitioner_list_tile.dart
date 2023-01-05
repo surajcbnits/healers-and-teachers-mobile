@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../../constant/app_color.dart';
-import '../../../../helper/text_style.dart';
-import '../../../../widgets/chip.dart';
-import '../../../../widgets/icon_text_widget.dart';
-import '../../model/pracitioners_model.dart';
+import '../../../../../constant/app_color.dart';
+import '../../../../../helper/text_style.dart';
+import '../../../../../widgets/chip.dart';
+import '../../../../../widgets/icon_text_widget.dart';
+import '../../../model/pracitioners_model.dart';
 
 class PractitionerListCard extends StatefulWidget {
   const PractitionerListCard({

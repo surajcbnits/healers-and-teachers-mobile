@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../config/routes/routes.dart';
-import '../../../constant/app_color.dart';
-import '../../../helper/text_style.dart';
-import '../../../widgets/location_tile.dart';
-import '../model/pracitioners_model.dart';
-import '../providers/paractitioners_provider.dart';
+import '../../../../config/routes/routes.dart';
+import '../../../../constant/app_color.dart';
+import '../../../../helper/text_style.dart';
+import '../../../../widgets/location_tile.dart';
+import '../../model/pracitioners_model.dart';
+import '../../providers/paractitioners_provider.dart';
 import 'components/practitioner_list_tile.dart';
 
 class PractitionerScreen extends StatefulWidget {

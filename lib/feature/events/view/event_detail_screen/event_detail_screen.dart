@@ -6,11 +6,11 @@ import 'package:healersandteachers/utils/screen_size.dart';
 import 'package:healersandteachers/widgets/chip.dart';
 import 'package:intl/intl.dart';
 
-import '../../../constant/app_color.dart';
-import '../../../widgets/circular_profile.dart';
-import '../../../widgets/read_more_text.dart';
-import '../../events/model/events_model.dart';
-import '../../paractitioners/model/pracitioners_model.dart';
+import '../../../../constant/app_color.dart';
+import '../../../../widgets/circular_profile.dart';
+import '../../../../widgets/read_more_text.dart';
+import '../../model/events_model.dart';
+import '../../../paractitioners/model/pracitioners_model.dart';
 
 class EventDetailScreen extends StatefulWidget {
   const EventDetailScreen({

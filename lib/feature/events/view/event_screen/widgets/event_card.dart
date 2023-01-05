@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../config/routes/routes.dart';
-import '../../../../constant/app_color.dart';
-import '../../../../helper/text_over_mage.dart';
-import '../../../../helper/text_style.dart';
-import '../../../../utils/screen_size.dart';
-import '../../../../widgets/icon_text_widget.dart';
-import '../../model/events_model.dart';
+import '../../../../../config/routes/routes.dart';
+import '../../../../../constant/app_color.dart';
+import '../../../../../helper/text_over_mage.dart';
+import '../../../../../helper/text_style.dart';
+import '../../../../../utils/screen_size.dart';
+import '../../../../../widgets/icon_text_widget.dart';
+import '../../../model/events_model.dart';
 
 class EventCard extends StatelessWidget {
   const EventCard({

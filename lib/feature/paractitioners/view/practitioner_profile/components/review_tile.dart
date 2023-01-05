@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../constant/app_color.dart';
-import '../../../../helper/text_style.dart';
+import '../../../../../constant/app_color.dart';
+import '../../../../../helper/text_style.dart';
 
 class ReviewTile extends StatelessWidget {
   const ReviewTile({

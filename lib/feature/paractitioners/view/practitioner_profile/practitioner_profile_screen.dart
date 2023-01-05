@@ -3,15 +3,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:provider/provider.dart';
 
-import '../../../constant/app_color.dart';
-import '../../../helper/text_style.dart';
-import '../../../utils/screen_size.dart';
-import '../../../widgets/chip.dart';
-import '../../../widgets/icon_text_widget.dart';
-import '../../events/Provider/events_provider.dart';
-import '../../events/model/events_model.dart';
-import '../../events/screen/widgets/event_card.dart';
-import '../../paractitioners/model/pracitioners_model.dart';
+import '../../../../constant/app_color.dart';
+import '../../../../helper/text_style.dart';
+import '../../../../utils/screen_size.dart';
+import '../../../../widgets/chip.dart';
+import '../../../../widgets/icon_text_widget.dart';
+import '../../../events/Provider/events_provider.dart';
+import '../../../events/model/events_model.dart';
+import '../../../events/view/event_screen/widgets/event_card.dart';
+import '../../model/pracitioners_model.dart';
 import 'components/review_tile.dart';
 import 'components/service_tile.dart';
 
