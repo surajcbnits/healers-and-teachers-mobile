@@ -28,16 +28,20 @@ class IconTextWidget extends StatelessWidget {
           iconData ?? Icons.location_on,
           color: color ?? AppColor.primaryColor,
         ),
-        const SizedBox(width: 10),
-        Text(
-          isOnline ? "Online" : title,
-          style: isTextThin
-              ? TextStyleHelper.t14b400().copyWith(
-                  color: color ?? AppColor.primaryColor,
-                )
-              : TextStyleHelper.t14b600().copyWith(
-                  color: color ?? AppColor.primaryColor,
-                ),
+        const SizedBox(width: 5),
+        Expanded(
+          child: Text(
+            isOnline ? "Online" : title,
+            overflow: TextOverflow.clip,
+            maxLines: 1,
+            style: isTextThin
+                ? TextStyleHelper.t14b400().copyWith(
+                    color: color ?? AppColor.primaryColor,
+                  )
+                : TextStyleHelper.t14b600().copyWith(
+                    color: color ?? AppColor.primaryColor,
+                  ),
+          ),
         ),
       ],
     );

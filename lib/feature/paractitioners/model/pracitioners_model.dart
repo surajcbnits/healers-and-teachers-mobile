@@ -24,13 +24,13 @@ class PractitionersDataModel {
     if (json['rows'] != null) {
       practitionerList = <PractitionersModel>[];
       json['rows'].forEach((v) {
-        practitionerList!.add(new PractitionersModel.fromJson(v));
+        practitionerList!.add(PractitionersModel.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['count'] = this.count;
     if (this.practitionerList != null) {
       data['rows'] = this.practitionerList!.map((v) => v.toJson()).toList();
@@ -108,13 +108,14 @@ class PractitionersModel {
     if (json['wellnessKeywords'] != null) {
       wellnessKeywords = <WellnessKeywords>[];
       json['wellnessKeywords'].forEach((v) {
-        wellnessKeywords!.add(new WellnessKeywords.fromJson(v));
+        wellnessKeywords!.add(WellnessKeywords.fromJson(v));
       });
+      wellnessKeywords!.sort((a, b) => a.name!.compareTo(b.name!));
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['firstName'] = this.firstName;
     data['lastName'] = this.lastName;
@@ -142,7 +143,6 @@ class PractitionersModel {
     return data;
   }
 }
-
 
 List<PractitionersModelTemp> getPractitioners = [
   PractitionersModelTemp(

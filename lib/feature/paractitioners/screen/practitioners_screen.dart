@@ -25,6 +25,7 @@ class _PractitionerScreenState extends State<PractitionerScreen> {
   bool hasMore = true;
   bool isFetching = false;
   int page = 0;
+  int dataLimit = 5;
 
   @override
   void initState() {
@@ -50,26 +51,32 @@ class _PractitionerScreenState extends State<PractitionerScreen> {
       setState(() {
         isFetching = true;
       });
+      log("fetching ${page * dataLimit}, ${p.memberDataList.length}, ${p.practitionersData.count!}");
 
       if (p.memberDataList.length >= p.practitionersData.count!) {
         hasMore = false;
+        log("no more data $hasMore");
         setState(() {});
         return;
       }
-      page++;
-      log("fetching ${page * 5}");
-      p.getMemberData(offset: page * 5).whenComplete(() {
-        setState(() {
-          isPageLoading = false;
-          isFetching = false;
+      if (hasMore) {
+        page++;
+        log("fetching ${page * dataLimit}");
+        p.getMemberData(offset: page * dataLimit).whenComplete(() {
+          setState(() {
+            isPageLoading = false;
+            isFetching = false;
+          });
         });
-      });
+      }
       // setState(() {});
     }
   }
 
   Future<void> _refreshData(PractitionersProvider p) async {
     await p.getMemberData(clearData: true);
+    log("refreshing ${page * dataLimit}, ${p.memberDataList.length}, ${p.practitionersData.count!}");
+
     setState(() {
       hasMore = true;
       isFetching = false;

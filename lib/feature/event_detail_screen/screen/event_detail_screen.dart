@@ -62,18 +62,41 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
               children: [
                 Column(
                   children: [
-                    Text(
-                      r"$25" " - " r"$50",
-                      style: TextStyleHelper.t24b700().copyWith(
-                        color: AppColor.white,
+                    if (widget.eventData.feetype == "sliding scale") ...[
+                      Text(
+                        "\$${widget.eventData.slidingscalemin} - \$${widget.eventData.slidingscalemin}",
+                        style: TextStyleHelper.t24b700().copyWith(
+                          color: AppColor.white,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "(Sliding Scale)",
-                      style: TextStyleHelper.t14b700().copyWith(
-                        color: AppColor.white,
+                      Text(
+                        "(Sliding Scale)",
+                        style: TextStyleHelper.t14b700().copyWith(
+                          color: AppColor.white,
+                        ),
                       ),
-                    ),
+                    ],
+                    if (widget.eventData.feetype == "free")
+                      Text(
+                        "Free",
+                        style: TextStyleHelper.t24b700().copyWith(
+                          color: AppColor.white,
+                        ),
+                      ),
+                    if (widget.eventData.feetype == "fixed") ...[
+                      Text(
+                        "\$${widget.eventData.feepersession}",
+                        style: TextStyleHelper.t24b700().copyWith(
+                          color: AppColor.white,
+                        ),
+                      ),
+                      Text(
+                        "(Fixed)",
+                        style: TextStyleHelper.t14b700().copyWith(
+                          color: AppColor.white,
+                        ),
+                      ),
+                    ]
                   ],
                 ),
                 const Spacer(),
@@ -113,16 +136,28 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  widget.eventData.name!,
+                  widget.eventData.name!.trim(),
                   style: TextStyleHelper.t24b700(),
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Sed consequat eget tellus eget ullamcorper.",
-                  style: TextStyleHelper.t14b400().copyWith(
-                    color: AppColor.grey,
-                  ),
+                Wrap(
+                  spacing: 10,
+                  children: [
+                    ...List.generate(
+                      widget.eventData.wellnessKeywords!.length,
+                      (index) => CustomChip(
+                        title: widget.eventData.wellnessKeywords![index].name!,
+                      ),
+                    ),
+                  ],
                 ),
+                const SizedBox(height: 10),
+                // Text(
+                //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Sed consequat eget tellus eget ullamcorper.",
+                //   style: TextStyleHelper.t14b400().copyWith(
+                //     color: AppColor.grey,
+                //   ),
+                // ),
                 CustomListTile(
                   title: convertDate(widget.eventData.startdatetime!),
                   subtitle: convertTime(widget.eventData.startdatetime!,
@@ -141,10 +176,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   style: TextStyleHelper.t18b700(),
                 ),
                 const SizedBox(height: 10),
-                const ReadMoreText(
-                  text:
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                ),
+                ReadMoreText(text: widget.eventData.description!),
                 const SizedBox(height: 10),
               ],
             ),
@@ -165,102 +197,87 @@ class EventPractitionerInterestTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 16),
-        Container(
-          height: screenWidth(context) * 0.17,
-          // color: Colors.red,
-          child: Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Container(
+      // margin: const EdgeInsets.only(top: 16),
+      height: screenWidth(context) * 0.17,
+      // color: Colors.red,
+      child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          OuterCircularProfile(
+            radius: screenWidth(context) * 0.17,
+            //NOTE: need to pass image of the practitioner
+            // image: NetworkImage(widget.eventData.image!),
+          ),
+          const SizedBox(width: 10),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              OuterCircularProfile(
-                radius: screenWidth(context) * 0.17,
-                image: NetworkImage(widget.eventData.image!),
+              Text(
+                "Amanda Harris",
+                style: TextStyleHelper.t14b600(),
               ),
-              const SizedBox(width: 10),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              const SizedBox(height: 10),
+              Text(
+                "Certified yoga teacher",
+                style: TextStyleHelper.t14b400().copyWith(
+                  color: AppColor.grey,
+                ),
+              ),
+            ],
+          ),
+          const Spacer(),
+          const VerticalDivider(
+            color: AppColor.grey,
+            thickness: 1,
+            // width: 20,
+          ),
+          const Spacer(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Interested",
+                style: TextStyleHelper.t14b600(),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                // fit: StackFit.expand,
+                // alignment: Alignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    "Amanda Harris",
-                    style: TextStyleHelper.t14b600(),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    "Certified yoga teacher",
-                    style: TextStyleHelper.t14b400().copyWith(
-                      color: AppColor.grey,
+                  ...List.generate(3, (index) {
+                    return const Align(
+                      widthFactor: 0.6,
+                      child: CircularProfile(
+                        radius: 12,
+                        showShadow: false,
+                        //NOTE: need to pass image of the Interested user
+                        // image: NetworkImage(widget.eventData.image!),
+                      ),
+                    );
+                  }),
+                  Align(
+                    widthFactor: 0.6,
+                    child: CircularProfile(
+                      radius: 12,
+                      showShadow: false,
+                      backgroundColor: AppColor.primaryColor,
+                      child: Text(
+                        "5+",
+                        style: TextStyleHelper.t14b600(),
+                      ),
                     ),
                   ),
                 ],
               ),
-              const Spacer(),
-              const VerticalDivider(
-                color: AppColor.grey,
-                thickness: 1,
-                // width: 20,
-              ),
-              const Spacer(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Interested",
-                    style: TextStyleHelper.t14b600(),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    // fit: StackFit.expand,
-                    // alignment: Alignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ...List.generate(3, (index) {
-                        return Align(
-                          widthFactor: 0.6,
-                          child: CircularProfile(
-                            radius: 12,
-                            showShadow: false,
-                            image: NetworkImage(widget.eventData.image!),
-                          ),
-                        );
-                      }),
-                      Align(
-                        widthFactor: 0.6,
-                        child: CircularProfile(
-                          radius: 12,
-                          showShadow: false,
-                          backgroundColor: AppColor.primaryColor,
-                          child: Text(
-                            "5+",
-                            style: TextStyleHelper.t14b600(),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const Spacer(),
             ],
           ),
-        ),
-        const SizedBox(height: 5),
-        Row(
-          children: [
-            ...List.generate(
-              getPractitioners[0].keyWords.length,
-              (index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child:
-                    CustomChip(title: getPractitioners[index].keyWords[index]),
-              ),
-            ),
-          ],
-        ),
-      ],
+          const Spacer(),
+        ],
+      ),
     );
   }
 }
@@ -287,7 +304,7 @@ class CustomListTile extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        margin: const EdgeInsets.only(top: 16),
+        margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: AppColor.greyLight,

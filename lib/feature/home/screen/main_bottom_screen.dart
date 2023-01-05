@@ -6,6 +6,7 @@ import '../../../constant/app_color.dart';
 import '../../../helper/text_style.dart';
 import '../../events/screen/events_screen.dart';
 import '../../paractitioners/screen/practitioners_screen.dart';
+import 'home_screen copy.dart';
 import 'home_screen.dart';
 
 class MainBottomScreen extends StatefulWidget {
@@ -24,6 +25,7 @@ class _MainBottomScreenState extends State<MainBottomScreen> {
     const EventScreen(),
     const PractitionerScreen(),
     const Center(child: Text('Account')),
+    // const HomeScreen2(),
   ];
 
   @override

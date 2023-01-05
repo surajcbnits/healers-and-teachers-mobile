@@ -25,7 +25,7 @@ class EventCard extends StatelessWidget {
     // date = date.toLocal();
     String formattedDate = DateFormat('dd MMM yy').format(startDate);
     String formattedTime = DateFormat('h:mma').format(startDate);
-    return "${formattedDate} • ${formattedTime}";
+    return "$formattedDate • $formattedTime";
   }
 
   @override
@@ -41,7 +41,7 @@ class EventCard extends StatelessWidget {
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconTextWidget(title: eventData.type!, isOnline: true),
+                  showLocation(),
                   const SizedBox(height: 10),
                   _buildImage(context),
                   const SizedBox(height: 10),
@@ -51,7 +51,7 @@ class EventCard extends StatelessWidget {
             : Row(
                 children: [
                   Expanded(
-                    flex: 4,
+                    flex: 5,
                     child: _buildImage(context),
                   ),
                   const SizedBox(width: 10),
@@ -67,18 +67,15 @@ class EventCard extends StatelessWidget {
 
   Widget _buildDetail(BuildContext context) {
     return SizedBox(
-      height: screenHeight(context) * (vertical ? 0.1 : 0.13),
+      height: screenHeight(context) * (vertical ? 0.1 : 0.14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (!vertical)
-            IconTextWidget(
-                title: "${eventData.city!}, ${eventData.state!}",
-                isOnline: eventData.type == "virtual"),
+          if (!vertical) showLocation(),
           Text(
-            eventData.name!,
-            maxLines: 1,
+            eventData.name!.trim(),
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyleHelper.t18b700(),
           ),
@@ -125,11 +122,17 @@ class EventCard extends StatelessWidget {
     );
   }
 
+  IconTextWidget showLocation() {
+    return IconTextWidget(
+        title: "${eventData.city!}, ${eventData.state!}",
+        isOnline: eventData.type == "virtual");
+  }
+
   Widget _buildImage(
     context,
   ) {
     return Container(
-      height: screenHeight(context) * 0.13,
+      height: screenHeight(context) * 0.14,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

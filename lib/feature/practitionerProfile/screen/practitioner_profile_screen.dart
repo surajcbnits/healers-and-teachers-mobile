@@ -40,7 +40,7 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
   _getData() {
     /// Get Event Data
     Provider.of<EventProvider>(context, listen: false)
-        .fetchEvents(widget.practitionerData.username!)
+        .fetchUserEvents(widget.practitionerData.username!)
         .then((value) {
       setState(() {
         eventList = value!;
@@ -241,7 +241,7 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
                     // contentPadding: EdgeInsets.zero,
                     // horizontalTitleGap: 0,
                     leading: const Icon(Icons.phone),
-                    title: Text("+" + memberData.phoneno!),
+                    title: Text("+${memberData.phoneno!}"),
                     onTap: () {},
                   ),
                 ),

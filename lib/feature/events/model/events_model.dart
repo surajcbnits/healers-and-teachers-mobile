@@ -23,23 +23,29 @@ class EventModelTemp {
 }
 
 class EventDataModel {
-  List<EventModel>? eventData;
+  int? count;
+  int? currentCount;
+  List<EventModel>? eventDataList;
 
-  EventDataModel({this.eventData});
+  EventDataModel({this.count, this.currentCount, this.eventDataList});
 
   EventDataModel.fromJson(Map<String, dynamic> json) {
+    count = json['count'];
+    currentCount = json['currentCount'];
     if (json['data'] != null) {
-      eventData = <EventModel>[];
+      eventDataList = <EventModel>[];
       json['data'].forEach((v) {
-        eventData!.add(new EventModel.fromJson(v));
+        eventDataList!.add(new EventModel.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.eventData != null) {
-      data['data'] = this.eventData!.map((v) => v.toJson()).toList();
+    data['count'] = this.count;
+    data['currentCount'] = this.currentCount;
+    if (this.eventDataList != null) {
+      data['data'] = this.eventDataList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -120,6 +126,7 @@ class EventModel {
       json['wellnessKeywords'].forEach((v) {
         wellnessKeywords!.add(new WellnessKeywords.fromJson(v));
       });
+      wellnessKeywords!.sort((a, b) => a.name!.compareTo(b.name!));
     }
   }
 

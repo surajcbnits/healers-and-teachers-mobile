@@ -38,6 +38,8 @@ class PractitionersProvider extends ChangeNotifier {
     try {
       final data = await _getPractitionersList(limit: limit, offset: offset);
 
+      data.practitionerList!
+          .sort((a, b) => a.firstName!.compareTo(b.firstName!));
       _practitioners = data;
       notifyListeners();
       return data;
@@ -66,10 +68,10 @@ class PractitionersProvider extends ChangeNotifier {
   }
 
   /// To fetch the data from the API and pagination
-  getMemberData(
-      {int limit = 10, int offset = 0, bool clearData = false}) async {
+  getMemberData({int limit = 5, int offset = 0, bool clearData = false}) async {
     final data = await _getPractitionersList(limit: limit, offset: offset);
     if (clearData) memberDataList.clear();
+    // data.practitionerList!.sort((a, b) => a.firstName!.compareTo(b.firstName!));
     memberDataList.addAll(data.practitionerList!);
     notifyListeners();
   }

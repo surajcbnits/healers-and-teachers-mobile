@@ -143,7 +143,7 @@ class PractitionersCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Text(
-                "${data.firstName!} ${data.lastName!}",
+                "${data.firstName!.trim()} ${data.lastName!.trim()}",
                 maxLines: 1,
                 style: TextStyleHelper.t18b700(),
                 textAlign: TextAlign.center,
@@ -162,12 +162,14 @@ class PractitionersCard extends StatelessWidget {
                         children: [
                           ...List.generate(
                             data.wellnessKeywords!.length,
-                            (index) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 2.5),
-                              child: CustomChip(
-                                  title: data.wellnessKeywords![index].name!),
-                            ),
+                            (index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 2.5),
+                                child: CustomChip(
+                                    title: data.wellnessKeywords![index].name!),
+                              );
+                            },
                           ),
                         ],
                       ),
