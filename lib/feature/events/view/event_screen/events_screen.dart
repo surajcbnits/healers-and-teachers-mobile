@@ -8,7 +8,6 @@ import '../../../../helper/text_style.dart';
 import '../../../../widgets/chip.dart';
 import '../../../../widgets/location_tile.dart';
 import '../../Provider/events_provider.dart';
-import '../../model/events_model.dart';
 import 'widgets/event_card.dart';
 
 class EventScreen extends StatefulWidget {
@@ -163,7 +162,7 @@ class _EventScreenState extends State<EventScreen> {
                                     itemBuilder: (context, index) {
                                       if (index < p.eventsList.length) {
                                         final data = p.eventsList[index];
-                                        return EventCard(eventData: data);
+                                        return EventCard(eventDetail: data);
                                       } else {
                                         return !isFetching
                                             ? const Center(

@@ -18,7 +18,7 @@ class EventsListTileWidget extends StatefulWidget {
 class _EventsListTileWidgetState extends State<EventsListTileWidget> {
   bool showOnline = false;
   bool isLoading = false;
-  List<EventModel> eventsDataList = [];
+  List<EventDetails> eventsDataList = [];
 
   @override
   void initState() {
@@ -77,7 +77,7 @@ class _EventsListTileWidgetState extends State<EventsListTileWidget> {
                   final data = eventsDataList[index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: EventCard(eventData: data),
+                    child: EventCard(eventDetail: data),
                   );
                 },
               ),

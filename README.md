@@ -1,6 +1,16 @@
 # healersandteachers
 
-A new Flutter project.
+### For building apk
+
+```--verbose``` (optional) to see internal progress
+
+```ENVIRONMENT=DEV``` is to trigger development environment
+
+```ENVIRONMENT=PROD``` is to trigger development environment
+
+Complete Command 👇
+
+``` flutter build apk --release --verbose --dart-define=ENVIRONMENT=PROD ```
 
 ## Getting Started
 

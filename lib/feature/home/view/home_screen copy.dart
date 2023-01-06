@@ -160,7 +160,7 @@ class CategoriesListWidget2 extends StatelessWidget {
             ),
             itemCount: categoriesList.length, //> 5 ? 5 : categoriesList.length,
             itemBuilder: (context, index) {
-              final CategoriesModel data = categoriesList[index];
+              final CategoriesModelTemp data = categoriesList[index];
               return CategoriesCard(data: data);
             },
           ),
@@ -176,7 +176,7 @@ class CategoriesCard extends StatelessWidget {
     required this.data,
   }) : super(key: key);
 
-  final CategoriesModel data;
+  final CategoriesModelTemp data;
 
   @override
   Widget build(BuildContext context) {

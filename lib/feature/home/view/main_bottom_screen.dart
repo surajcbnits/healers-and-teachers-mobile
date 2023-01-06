@@ -24,8 +24,8 @@ class _MainBottomScreenState extends State<MainBottomScreen> {
     const HomeScreen(),
     const EventScreen(),
     const PractitionerScreen(),
-    const Center(child: Text('Account')),
-    // const HomeScreen2(),
+    // const Center(child: Text('Account')),
+    const HomeScreen2(),
   ];
 
   @override

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:healersandteachers/feature/services/model/services_model.dart';
+import 'package:healersandteachers/feature/services/provider/service_provider.dart';
 
 import 'package:provider/provider.dart';
 
@@ -13,12 +15,12 @@ import '../../../events/model/events_model.dart';
 import '../../../events/view/event_screen/widgets/event_card.dart';
 import '../../model/pracitioners_model.dart';
 import 'components/review_tile.dart';
-import 'components/service_tile.dart';
+import '../../../services/view/service_tile.dart';
 
 class PractitionerProfileScreen extends StatefulWidget {
   const PractitionerProfileScreen({super.key, required this.practitionerData});
 
-  final PractitionersModel practitionerData;
+  final MemberDetails practitionerData;
 
   @override
   State<PractitionerProfileScreen> createState() =>
@@ -26,10 +28,12 @@ class PractitionerProfileScreen extends StatefulWidget {
 }
 
 class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
-  late PractitionersModel memberData;
-  late List<EventModel> eventList;
+  late MemberDetails memberData;
+  late List<EventDetails> eventList;
+  late ServiceDataModel serviceData;
   bool isLoading = true;
   bool isEventLoading = true;
+  bool isServiceLoading = true;
 
   @override
   void initState() {
@@ -42,10 +46,15 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
     Provider.of<EventProvider>(context, listen: false)
         .fetchUserEvents(widget.practitionerData.username!)
         .then((value) {
-      setState(() {
-        eventList = value!;
-      });
+      setState(() => eventList = value!);
     }).whenComplete(() => setState(() => isEventLoading = false));
+
+    /// Get service Data
+    Provider.of<ServiceProvider>(context, listen: false)
+        .fetchServiceByUser(widget.practitionerData.username!)
+        .then((value) {
+      setState(() => serviceData = value!);
+    }).whenComplete(() => setState(() => isServiceLoading = false));
   }
 
   @override
@@ -160,22 +169,25 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
                       ),
                     ),
                     titleText("Services"),
-                    ListView.separated(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.only(top: 10),
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return ServicesTile(
-                            practitionerData: getPractitioners.first);
-                      },
-                      separatorBuilder: (context, index) {
-                        return const Divider(
-                          height: 30,
-                          thickness: 1,
-                        );
-                      },
-                      itemCount: 3,
-                    ),
+                    if (isServiceLoading)
+                      const Center(child: CircularProgressIndicator())
+                    else
+                      ListView.separated(
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.only(top: 10),
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return ServicesTile(
+                              serviceData: serviceData.serviceDataList![index]);
+                        },
+                        separatorBuilder: (context, index) {
+                          return const Divider(
+                            height: 30,
+                            thickness: 1,
+                          );
+                        },
+                        itemCount: serviceData.serviceDataList!.length,
+                      ),
                     if (widget.practitionerData.qualification !=
                         "undefined") ...[
                       titleText("Training & Credentials"),
@@ -191,7 +203,7 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
                     else
                       ...List.generate(
                         eventList.length,
-                        (index) => EventCard(eventData: eventList[index]),
+                        (index) => EventCard(eventDetail: eventList[index]),
                       ),
 
                     // EventCard(eventData: eventsList[0]),
@@ -216,7 +228,7 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
   }
 
   Future<dynamic> contactBottomSheet(
-      BuildContext context, PractitionersModel memberData) {
+      BuildContext context, MemberDetails memberData) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,

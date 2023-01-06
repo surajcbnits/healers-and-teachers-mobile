@@ -47,7 +47,7 @@ class CategoriesScreen extends StatelessWidget {
               );
             }
             // index = index - 1;
-            final CategoriesModel data = categoriesList[index - 1];
+            final CategoriesModelTemp data = categoriesList[index - 1];
             return InkWell(
               onTap: () {
                 // Navigator.pushNamed(context, Routes.categoriesScreen);

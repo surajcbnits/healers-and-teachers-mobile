@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:healersandteachers/feature/services/model/services_model.dart';
+import 'package:healersandteachers/widgets/read_more_text.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../../../constant/app_color.dart';
-import '../../../../../helper/text_style.dart';
-import '../../../../../utils/screen_size.dart';
-import '../../../../../widgets/chip.dart';
-import '../../../../../widgets/icon_text_widget.dart';
-import '../../../model/pracitioners_model.dart';
+import '../../../constant/app_color.dart';
+import '../../../helper/text_over_mage.dart';
+import '../../../helper/text_style.dart';
+import '../../../utils/screen_size.dart';
+import '../../../widgets/chip.dart';
 
 class ServicesTile extends StatelessWidget {
   const ServicesTile({
     Key? key,
-    required this.practitionerData,
+    required this.serviceData,
   }) : super(key: key);
-  final PractitionersModelTemp practitionerData;
+  final ServiceModel serviceData;
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 100,
       width: double.infinity,
-      color: Colors.red,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -28,7 +27,7 @@ class ServicesTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                flex: 5,
+                flex: 2,
                 child: _buildImage(context),
               ),
               const SizedBox(width: 10),
@@ -38,95 +37,90 @@ class ServicesTile extends StatelessWidget {
               ),
             ],
           ),
-          // Row(
-          //   children: [
-          //     ...List.generate(
-          //       practitionerData.keyWords.length,
-          //       (index) => Padding(
-          //         padding: const EdgeInsets.symmetric(horizontal: 2.5),
-          //         child: CustomChip(title: practitionerData.keyWords[index]),
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // Row(
-          //   children: [
-          //     Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: const [
-          //         IconTextWidget(
-          //           isOnline: true,
-          //           color: AppColor.grey,
-          //         ),
-          //         IconTextWidget(
-          //           iconData: Icons.access_time_filled_outlined,
-          //           title: "1 hour",
-          //           color: AppColor.grey,
-          //         ),
-          //       ],
-          //     ),
-          //     const Spacer(),
-          //     ElevatedButton(
-          //       onPressed: () {
-          //         bottomSheetBookingTime(context);
-          //       },
-          //       child: const Text(
-          //         "Book Now",
-          //         style: TextStyle(color: AppColor.white),
-          //       ),
-          //     ),
-          //   ],
-          // ),
+          const SizedBox(height: 10),
+          ReadMoreText(text: serviceData.description!, breakingLength: 120),
         ],
       ),
     );
   }
 
   Widget _buildDetail(BuildContext context) {
-    return SizedBox(
+    return Container(
+      // color: Colors.red,
       height: screenHeight(context) * 0.14,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            practitionerData.name!.trim(),
-            maxLines: 2,
+            serviceData.name!.trim(),
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyleHelper.t18b700(),
           ),
           // SizedBox(height: 5),
+          Scrollbar(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ...List.generate(
+                    serviceData.wellnessKeywords!.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                      child: CustomChip(
+                          title: serviceData.wellnessKeywords![index].name!),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Spacer(),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ...List.generate(
-                practitionerData.keyWords.length,
-                (index) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 2.5),
-                  child: CustomChip(title: practitionerData.keyWords[index]),
+              // Expanded(
+              //   child: IconTextWidget(
+              //     iconData: Icons.access_time_filled_outlined,
+              //     iconSize: 20.0,
+              //     title: "${serviceData.duration} hour",
+              //     color: AppColor.grey,
+              //   ),
+              // ),
+              Text(
+                getPrice(),
+                style: TextStyleHelper.t14b600()
+                    .copyWith(color: AppColor.primaryColor),
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  bottomSheetBookingTime(context);
+                },
+                child: const Text(
+                  "Book Now",
+                  // style: TextStyle(color: AppColor.white),
                 ),
               ),
             ],
-          ),
-          Text(
-            "Time",
-            style: TextStyleHelper.t16b600().copyWith(
-              color: AppColor.darkBlue.withOpacity(.6),
-            ),
-          ),
-          Text(
-            "cost",
-            style: TextStyleHelper.t16b600().copyWith(
-              color: AppColor.darkBlue.withOpacity(.6),
-            ),
-          ),
+          )
         ],
       ),
     );
   }
 
-  Widget _buildImage(
-    context,
-  ) {
+  String getPrice() {
+    if (serviceData.feetype == "sliding scale") {
+      return "\$${serviceData.slidingscalemin} - \$${serviceData.slidingscalemax}";
+    } else if (serviceData.feetype == "fixed") {
+      return "\$${serviceData.feepersession}";
+    } else if (serviceData.feetype == "free") {
+      return "Free";
+    }
+    return "";
+  }
+
+  Widget _buildImage(context) {
     return Container(
       height: screenHeight(context) * 0.14,
       width: double.infinity,
@@ -134,17 +128,17 @@ class ServicesTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         color: AppColor.secondaryColor,
         image: DecorationImage(
-          image: NetworkImage(practitionerData.image),
+          image: NetworkImage(serviceData.image!),
           fit: BoxFit.cover,
         ),
       ),
-      // child: TextOverImage(
-      //   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-      //   title: convertDate(eventData.startdatetime!),
-      //   style: TextStyleHelper.t14b700().copyWith(
-      //     color: AppColor.white,
-      //   ),
-      // ),
+      child: TextOverImage(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+        title: "${serviceData.duration} hour",
+        style: TextStyleHelper.t14b700().copyWith(
+          color: AppColor.white,
+        ),
+      ),
     );
   }
 

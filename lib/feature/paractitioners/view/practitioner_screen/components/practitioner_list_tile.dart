@@ -11,7 +11,7 @@ class PractitionerListCard extends StatefulWidget {
     Key? key,
     required this.data,
   }) : super(key: key);
-  final PractitionersModel data;
+  final MemberDetails data;
 
   @override
   State<PractitionerListCard> createState() => _PractitionerListCardState();

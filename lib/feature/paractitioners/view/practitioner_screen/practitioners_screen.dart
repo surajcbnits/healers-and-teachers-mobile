@@ -148,7 +148,7 @@ class _PractitionerScreenState extends State<PractitionerScreen> {
                                   },
                                   itemBuilder: (context, index) {
                                     if (index < p.memberDataList.length) {
-                                      final PractitionersModel data =
+                                      final MemberDetails data =
                                           p.memberDataList[index];
                                       return InkWell(
                                           onTap: () {

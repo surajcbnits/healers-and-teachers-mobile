@@ -22,20 +22,20 @@ class EventModelTemp {
   });
 }
 
-class EventDataModel {
+class EventDetailsDataModel {
   int? count;
   int? currentCount;
-  List<EventModel>? eventDataList;
+  List<EventDetails>? eventDataList;
 
-  EventDataModel({this.count, this.currentCount, this.eventDataList});
+  EventDetailsDataModel({this.count, this.currentCount, this.eventDataList});
 
-  EventDataModel.fromJson(Map<String, dynamic> json) {
+  EventDetailsDataModel.fromJson(Map<String, dynamic> json) {
     count = json['count'];
     currentCount = json['currentCount'];
     if (json['data'] != null) {
-      eventDataList = <EventModel>[];
+      eventDataList = <EventDetails>[];
       json['data'].forEach((v) {
-        eventDataList!.add(new EventModel.fromJson(v));
+        eventDataList!.add(new EventDetails.fromJson(v));
       });
     }
   }
@@ -51,7 +51,7 @@ class EventDataModel {
   }
 }
 
-class EventModel {
+class EventDetails {
   int? id;
   String? name;
   String? image;
@@ -73,9 +73,13 @@ class EventModel {
   String? createdAt;
   String? updatedAt;
   int? memberId;
+  String? memberUserName;
+  String? memberImage;
+  String? memberFirstName;
+  String? memberLastName;
   List<WellnessKeywords>? wellnessKeywords;
 
-  EventModel(
+  EventDetails(
       {this.id,
       this.name,
       this.image,
@@ -97,12 +101,16 @@ class EventModel {
       this.createdAt,
       this.updatedAt,
       this.memberId,
+      this.memberUserName,
+      this.memberImage,
+      this.memberFirstName,
+      this.memberLastName,
       this.wellnessKeywords});
 
-  EventModel.fromJson(Map<String, dynamic> json) {
+  EventDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    image = json['image'] != null ? ApiPath.baseURL + json['image'] : null;
+    image = json['image'] != null ? ApiPath.baseURL + json['image'] : "";
     description = json['description'];
     startdatetime = DateTime.parse(json['startdatetime']);
     enddatetime = DateTime.parse(json['enddatetime']);
@@ -121,6 +129,12 @@ class EventModel {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     memberId = json['MemberId'];
+    memberUserName = json['memberUserName'];
+    memberImage = json['memberImage'] != null
+        ? ApiPath.baseURL + json['memberImage']
+        : "";
+    memberFirstName = json['memberFirstName'];
+    memberLastName = json['memberLastName'];
     if (json['wellnessKeywords'] != null) {
       wellnessKeywords = <WellnessKeywords>[];
       json['wellnessKeywords'].forEach((v) {
@@ -153,6 +167,10 @@ class EventModel {
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['MemberId'] = this.memberId;
+    data['memberUserName'] = this.memberUserName;
+    data['memberImage'] = this.memberImage;
+    data['memberFirstName'] = this.memberFirstName;
+    data['memberLastName'] = this.memberLastName;
     if (this.wellnessKeywords != null) {
       data['wellnessKeywords'] =
           this.wellnessKeywords!.map((v) => v.toJson()).toList();

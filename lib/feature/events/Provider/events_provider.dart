@@ -6,13 +6,13 @@ import 'package:healersandteachers/feature/events/model/events_model.dart';
 import '../../../helper/api_helper.dart';
 
 class EventProvider extends ChangeNotifier {
-  EventDataModel? _eventsData;
-  EventDataModel get eventsData => _eventsData!;
-  List<EventModel> _events = [];
-  List<EventModel> get eventsList => _events;
+  EventDetailsDataModel? _eventsData;
+  EventDetailsDataModel get eventsData => _eventsData!;
+  List<EventDetails> _events = [];
+  List<EventDetails> get eventsList => _events;
 
-  /// Fetches the list of [EventDataModel] from the API
-  Future<EventDataModel> _getEvents(String username) async {
+  /// Fetches the list of [EventDetailsDataModel] from the API
+  Future<EventDetailsDataModel> _getEvents(String username) async {
     try {
       final response = await ApiHelper.getData(
         url: "/getMemberEventsByUser",
@@ -20,16 +20,18 @@ class EventProvider extends ChangeNotifier {
       );
       log(response.toString());
       if (response!.statusCode == 200) {
-        EventDataModel data = EventDataModel.fromJson(response.data);
+        EventDetailsDataModel data =
+            EventDetailsDataModel.fromJson(response.data);
         return data;
       }
-      return EventDataModel();
+      return EventDetailsDataModel();
     } catch (error) {
       throw (error);
     }
   }
 
-  Future<EventDataModel> _getEventList({int limit = 10, int offset = 0}) async {
+  Future<EventDetailsDataModel> _getEventList(
+      {int limit = 10, int offset = 0}) async {
     try {
       final response = await ApiHelper.getData(
         url: "/getAllMemberEventList",
@@ -37,16 +39,17 @@ class EventProvider extends ChangeNotifier {
       );
       log(response.toString());
       if (response!.statusCode == 200) {
-        EventDataModel data = EventDataModel.fromJson(response.data);
+        EventDetailsDataModel data =
+            EventDetailsDataModel.fromJson(response.data);
         return data;
       }
-      return EventDataModel();
+      return EventDetailsDataModel();
     } catch (error) {
       throw (error);
     }
   }
 
-  Future<List<EventModel>?> fetchUserEvents(String username) async {
+  Future<List<EventDetails>?> fetchUserEvents(String username) async {
     try {
       final events = await _getEvents(username);
       // _events = events.eventData!;
@@ -57,7 +60,7 @@ class EventProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<EventModel>?> fetchAllEventsList(
+  Future<List<EventDetails>?> fetchAllEventsList(
       {int limit = 5, int offset = 0, bool clearData = false}) async {
     try {
       final events = await _getEventList(limit: limit, offset: offset);

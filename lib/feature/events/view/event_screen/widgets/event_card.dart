@@ -14,12 +14,12 @@ class EventCard extends StatelessWidget {
     Key? key,
     // required this.index,
     this.vertical = false,
-    required this.eventData,
+    required this.eventDetail,
   }) : super(key: key);
 
   // final int index;
   final bool vertical;
-  final EventModel eventData;
+  final EventDetails eventDetail;
 
   String convertDate(DateTime startDate) {
     // date = date.toLocal();
@@ -33,7 +33,7 @@ class EventCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, Routes.eventDetailScreen,
-            arguments: eventData);
+            arguments: eventDetail);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -74,7 +74,7 @@ class EventCard extends StatelessWidget {
         children: [
           if (!vertical) showLocation(),
           Text(
-            eventData.name!.trim(),
+            eventDetail.name!.trim(),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyleHelper.t18b700(),
@@ -101,18 +101,20 @@ class EventCard extends StatelessWidget {
                   ),
                 ),
                 child: CircleAvatar(
-                    // radius: 40,
-                    // backgroundImage: NetworkImage(eventData.eventBy.profileImage),
+                    radius: 40,
+                    backgroundImage: NetworkImage(eventDetail.memberImage!),
                     ),
               ),
               const SizedBox(width: 10),
-              Text(
-                // eventData.eventBy.name,
-                "name",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyleHelper.t14b600().copyWith(
-                  color: AppColor.darkBlue,
+              Expanded(
+                child: Text(
+                  // eventData.eventBy.name,
+                  "${eventDetail.memberFirstName!} ${eventDetail.memberLastName!}",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyleHelper.t14b600().copyWith(
+                    color: AppColor.darkBlue,
+                  ),
                 ),
               ),
             ],
@@ -124,8 +126,8 @@ class EventCard extends StatelessWidget {
 
   IconTextWidget showLocation() {
     return IconTextWidget(
-        title: "${eventData.city!}, ${eventData.state!}",
-        isOnline: eventData.type == "virtual");
+        title: "${eventDetail.city!}, ${eventDetail.state!}",
+        isOnline: eventDetail.type == "virtual");
   }
 
   Widget _buildImage(
@@ -138,13 +140,13 @@ class EventCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         color: AppColor.secondaryColor,
         image: DecorationImage(
-          image: NetworkImage(eventData.image!),
+          image: NetworkImage(eventDetail.image!),
           fit: BoxFit.cover,
         ),
       ),
       child: TextOverImage(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-        title: convertDate(eventData.startdatetime!),
+        title: convertDate(eventDetail.startdatetime!),
         style: TextStyleHelper.t14b700().copyWith(
           color: AppColor.white,
         ),

@@ -11,10 +11,12 @@ class IconTextWidget extends StatelessWidget {
     this.color,
     this.iconData,
     this.isTextThin = false,
+    this.iconSize,
   }) : super(key: key);
 
   final String title;
   final IconData? iconData;
+  final double? iconSize;
   final bool isOnline;
   final Color? color;
   final bool isTextThin;
@@ -27,6 +29,7 @@ class IconTextWidget extends StatelessWidget {
         Icon(
           iconData ?? Icons.location_on,
           color: color ?? AppColor.primaryColor,
+          size: iconSize,
         ),
         const SizedBox(width: 5),
         Expanded(

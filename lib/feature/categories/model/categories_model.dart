@@ -1,9 +1,11 @@
+import '../../events/model/events_model.dart';
+import '../../paractitioners/model/pracitioners_model.dart';
 
-class CategoriesModel {
+class CategoriesModelTemp {
   final String name;
   final String imageUrl;
 
-  CategoriesModel({required this.name, required this.imageUrl});
+  CategoriesModelTemp({required this.name, required this.imageUrl});
 }
 
 // List of categories
@@ -20,53 +22,126 @@ class CategoriesModel {
 // Balinese Healing
 // List<CategoriesModel> get categoriesListData => categoriesList.sort((a, b) => a.name.compareTo(b.name));
 
-List<CategoriesModel> categoriesList = [
-  CategoriesModel(
+class CategoriesDataModel {
+  int? id;
+  String? name;
+  String? image;
+  String? description;
+  String? createdAt;
+  String? updatedAt;
+  List<WellnessKeywords>? wellnessKeywords;
+  List<MemberDetails>? memberDetails;
+  List<EventDetails>? eventDetails;
+
+  CategoriesDataModel(
+      {this.id,
+      this.name,
+      this.image,
+      this.description,
+      this.createdAt,
+      this.updatedAt,
+      this.wellnessKeywords,
+      this.memberDetails,
+      this.eventDetails});
+
+  CategoriesDataModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    image = json['image'];
+    description = json['description'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    if (json['wellnessKeywords'] != null) {
+      wellnessKeywords = <WellnessKeywords>[];
+      json['wellnessKeywords'].forEach((v) {
+        wellnessKeywords!.add(WellnessKeywords.fromJson(v));
+      });
+      wellnessKeywords!.sort((a, b) => a.name!.compareTo(b.name!));
+    }
+    if (json['memberDetails'] != null) {
+      memberDetails = <MemberDetails>[];
+      json['memberDetails'].forEach((v) {
+        memberDetails!.add(MemberDetails.fromJson(v));
+      });
+    }
+    if (json['eventDetails'] != null) {
+      eventDetails = <EventDetails>[];
+      json['eventDetails'].forEach((v) {
+        eventDetails!.add(EventDetails.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['image'] = this.image;
+    data['description'] = this.description;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    if (this.wellnessKeywords != null) {
+      data['wellnessKeywords'] =
+          this.wellnessKeywords!.map((v) => v.toJson()).toList();
+    }
+    if (this.memberDetails != null) {
+      data['memberDetails'] =
+          this.memberDetails!.map((v) => v.toJson()).toList();
+    }
+    if (this.eventDetails != null) {
+      data['eventDetails'] = this.eventDetails!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+List<CategoriesModelTemp> categoriesList = [
+  CategoriesModelTemp(
     name: "Meditation",
     imageUrl:
         "https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fE1lZGl0YXRpb258ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
   ),
-  CategoriesModel(
+  CategoriesModelTemp(
     name: "Yoga",
     imageUrl:
         "https://images.unsplash.com/photo-1603988363607-e1e4a66962c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fHlvZ2F8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
   ),
-  CategoriesModel(
+  CategoriesModelTemp(
     name: "Breathwork",
     imageUrl:
         "https://images.unsplash.com/photo-1545389336-cf090694435e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHlvZ2F8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
   ),
-  CategoriesModel(
+  CategoriesModelTemp(
     name: "Reiki",
     imageUrl:
         "https://images.unsplash.com/photo-1579291465308-fba6c5db2dfe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDV8fHJlaWtpJTIwaGVhbGluZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60",
   ),
-  CategoriesModel(
+  CategoriesModelTemp(
     name: "Psychedelics & Plant Medicine",
     imageUrl:
         "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fFBsYW50JTIwTWVkaWNpbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
   ),
-  CategoriesModel(
+  CategoriesModelTemp(
     name: "Taichi & Qigong",
     imageUrl:
         "https://images.unsplash.com/photo-1529535260226-f5db9210ce89?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8VGFpY2hpfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60",
   ),
-  CategoriesModel(
+  CategoriesModelTemp(
     name: "Counseling",
     imageUrl:
         "https://images.unsplash.com/photo-1604881991664-593b31b88488?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Q291bnNlbGluZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60",
   ),
-  CategoriesModel(
+  CategoriesModelTemp(
     name: "Prayer",
     imageUrl:
         "https://images.unsplash.com/photo-1520642413789-2bd6770d59e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHByYXllciUyMGdyb3VwfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60",
   ),
-  CategoriesModel(
+  CategoriesModelTemp(
     name: "Life Design",
     imageUrl:
         "https://images.unsplash.com/photo-1584589167171-541ce45f1eea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bGlmZSUyMHN0eWxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60",
   ),
-  CategoriesModel(
+  CategoriesModelTemp(
     name: "Balian Healing",
     imageUrl:
         "https://images.unsplash.com/photo-1582107208835-973713624596?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fEhlYWxpbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",

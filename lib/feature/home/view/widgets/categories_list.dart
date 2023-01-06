@@ -62,7 +62,7 @@ class CategoriesListWidget extends StatelessWidget {
               //     ),
               //   );
               // }
-              final CategoriesModel data = categoriesList[index];
+              final CategoriesModelTemp data = categoriesList[index];
               return Padding(
                 padding: EdgeInsets.only(
                     left: index == 0 ? 16 : 10, right: index == 5 ? 16 : 10),
@@ -82,7 +82,7 @@ class CategoriesCard extends StatelessWidget {
     required this.data,
   }) : super(key: key);
 
-  final CategoriesModel data;
+  final CategoriesModelTemp data;
 
   @override
   Widget build(BuildContext context) {

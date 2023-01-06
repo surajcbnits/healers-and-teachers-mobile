@@ -17,7 +17,7 @@ class EventDetailScreen extends StatefulWidget {
     super.key,
     required this.eventData,
   });
-  final EventModel eventData;
+  final EventDetails eventData;
 
   @override
   State<EventDetailScreen> createState() => _EventDetailScreenState();
@@ -60,45 +60,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
           children: [
             Row(
               children: [
-                Column(
-                  children: [
-                    if (widget.eventData.feetype == "sliding scale") ...[
-                      Text(
-                        "\$${widget.eventData.slidingscalemin} - \$${widget.eventData.slidingscalemin}",
-                        style: TextStyleHelper.t24b700().copyWith(
-                          color: AppColor.white,
-                        ),
-                      ),
-                      Text(
-                        "(Sliding Scale)",
-                        style: TextStyleHelper.t14b700().copyWith(
-                          color: AppColor.white,
-                        ),
-                      ),
-                    ],
-                    if (widget.eventData.feetype == "free")
-                      Text(
-                        "Free",
-                        style: TextStyleHelper.t24b700().copyWith(
-                          color: AppColor.white,
-                        ),
-                      ),
-                    if (widget.eventData.feetype == "fixed") ...[
-                      Text(
-                        "\$${widget.eventData.feepersession}",
-                        style: TextStyleHelper.t24b700().copyWith(
-                          color: AppColor.white,
-                        ),
-                      ),
-                      Text(
-                        "(Fixed)",
-                        style: TextStyleHelper.t14b700().copyWith(
-                          color: AppColor.white,
-                        ),
-                      ),
-                    ]
-                  ],
-                ),
+                priceDisplayWidget(),
                 const Spacer(),
                 ElevatedButton.icon(
                   onPressed: () {
@@ -169,7 +131,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   subtitle: "1601 Store ST, San Franciso, CA 94107",
                   leadingIcon: Icons.location_on_outlined,
                 ),
-                EventPractitionerInterestTile(widget: widget),
+                EventPractitionerInterestTile(eventDetails: widget.eventData),
                 const SizedBox(height: 20),
                 Text(
                   "About",
@@ -185,97 +147,141 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
       ),
     );
   }
+
+  Column priceDisplayWidget() {
+    return Column(
+      children: [
+        if (widget.eventData.feetype == "sliding scale") ...[
+          Text(
+            "\$${widget.eventData.slidingscalemin} - \$${widget.eventData.slidingscalemin}",
+            style: TextStyleHelper.t24b700().copyWith(
+              color: AppColor.white,
+            ),
+          ),
+          Text(
+            "(Sliding Scale)",
+            style: TextStyleHelper.t14b700().copyWith(
+              color: AppColor.white,
+            ),
+          ),
+        ],
+        if (widget.eventData.feetype == "free")
+          Text(
+            "Free",
+            style: TextStyleHelper.t24b700().copyWith(
+              color: AppColor.white,
+            ),
+          ),
+        if (widget.eventData.feetype == "fixed") ...[
+          Text(
+            "\$${widget.eventData.feepersession}",
+            style: TextStyleHelper.t24b700().copyWith(
+              color: AppColor.white,
+            ),
+          ),
+          Text(
+            "(Fixed)",
+            style: TextStyleHelper.t14b700().copyWith(
+              color: AppColor.white,
+            ),
+          ),
+        ]
+      ],
+    );
+  }
 }
 
 class EventPractitionerInterestTile extends StatelessWidget {
   const EventPractitionerInterestTile({
     Key? key,
-    required this.widget,
+    required this.eventDetails,
   }) : super(key: key);
 
-  final EventDetailScreen widget;
+  final EventDetails eventDetails;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: const EdgeInsets.only(top: 16),
       height: screenWidth(context) * 0.17,
       // color: Colors.red,
       child: Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           OuterCircularProfile(
             radius: screenWidth(context) * 0.17,
-            //NOTE: need to pass image of the practitioner
-            // image: NetworkImage(widget.eventData.image!),
+            image: NetworkImage(eventDetails.memberImage!),
           ),
           const SizedBox(width: 10),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Amanda Harris",
-                style: TextStyleHelper.t14b600(),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                "Certified yoga teacher",
-                style: TextStyleHelper.t14b400().copyWith(
-                  color: AppColor.grey,
+          Expanded(
+            flex: 5,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${eventDetails.memberFirstName!} ${eventDetails.memberLastName!}",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyleHelper.t14b600(),
                 ),
-              ),
-            ],
+                const SizedBox(height: 10),
+                Text(
+                  "Certified yoga teacher",
+                  style: TextStyleHelper.t14b400().copyWith(
+                    color: AppColor.grey,
+                  ),
+                ),
+              ],
+            ),
           ),
-          const Spacer(),
           const VerticalDivider(
             color: AppColor.grey,
             thickness: 1,
             // width: 20,
           ),
-          const Spacer(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Interested",
-                style: TextStyleHelper.t14b600(),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                // fit: StackFit.expand,
-                // alignment: Alignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ...List.generate(3, (index) {
-                    return const Align(
+          Expanded(
+            flex: 2,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Interested",
+                  style: TextStyleHelper.t14b600(),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  // fit: StackFit.expand,
+                  // alignment: Alignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ...List.generate(3, (index) {
+                      return const Align(
+                        widthFactor: 0.6,
+                        child: CircularProfile(
+                          radius: 12,
+                          showShadow: false,
+                          //NOTE: need to pass image of the Interested user
+                          // image: NetworkImage(widget.eventData.image!),
+                        ),
+                      );
+                    }),
+                    Align(
                       widthFactor: 0.6,
                       child: CircularProfile(
                         radius: 12,
                         showShadow: false,
-                        //NOTE: need to pass image of the Interested user
-                        // image: NetworkImage(widget.eventData.image!),
-                      ),
-                    );
-                  }),
-                  Align(
-                    widthFactor: 0.6,
-                    child: CircularProfile(
-                      radius: 12,
-                      showShadow: false,
-                      backgroundColor: AppColor.primaryColor,
-                      child: Text(
-                        "5+",
-                        style: TextStyleHelper.t14b600(),
+                        backgroundColor: AppColor.primaryColor,
+                        child: Text(
+                          "5+",
+                          style: TextStyleHelper.t14b600(),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
-          const Spacer(),
         ],
       ),
     );

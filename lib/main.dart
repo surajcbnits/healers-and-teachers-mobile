@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'config/routes/routes.dart';
 import 'feature/home/view/main_bottom_screen.dart';
 import 'feature/paractitioners/providers/paractitioners_provider.dart';
+import 'feature/services/provider/service_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => PractitionersProvider()),
         ChangeNotifierProvider(create: (context) => EventProvider()),
+        ChangeNotifierProvider(create: (context) => ServiceProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

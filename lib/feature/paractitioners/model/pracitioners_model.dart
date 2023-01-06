@@ -13,18 +13,18 @@ class PractitionersModelTemp {
   });
 }
 
-class PractitionersDataModel {
+class MemberDetailsDataModel {
   int? count;
-  List<PractitionersModel>? practitionerList;
+  List<MemberDetails>? practitionerList;
 
-  PractitionersDataModel({this.count, this.practitionerList});
+  MemberDetailsDataModel({this.count, this.practitionerList});
 
-  PractitionersDataModel.fromJson(Map<String, dynamic> json) {
+  MemberDetailsDataModel.fromJson(Map<String, dynamic> json) {
     count = json['count'];
     if (json['rows'] != null) {
-      practitionerList = <PractitionersModel>[];
+      practitionerList = <MemberDetails>[];
       json['rows'].forEach((v) {
-        practitionerList!.add(PractitionersModel.fromJson(v));
+        practitionerList!.add(MemberDetails.fromJson(v));
       });
     }
   }
@@ -39,7 +39,7 @@ class PractitionersDataModel {
   }
 }
 
-class PractitionersModel {
+class MemberDetails {
   int? id;
   String? firstName;
   String? lastName;
@@ -62,7 +62,7 @@ class PractitionersModel {
   String? virtualsessions;
   List<WellnessKeywords>? wellnessKeywords;
 
-  PractitionersModel(
+  MemberDetails(
       {this.id,
       this.firstName,
       this.lastName,
@@ -84,7 +84,7 @@ class PractitionersModel {
       this.ip,
       this.virtualsessions});
 
-  PractitionersModel.fromJson(Map<String, dynamic> json) {
+  MemberDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     firstName = json['firstName'];
     lastName = json['lastName'];

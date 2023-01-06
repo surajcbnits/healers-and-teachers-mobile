@@ -82,7 +82,7 @@ class _NearByPractitionersWidgetState extends State<NearByPractitionersWidget> {
                         //     child: const ViewAllButton(),
                         //   );
                         // }
-                        final PractitionersModel data =
+                        final MemberDetails data =
                             p.practitionersData.practitionerList![index];
                         return Padding(
                           padding: EdgeInsets.only(
@@ -108,7 +108,7 @@ class PractitionersCard extends StatelessWidget {
     this.showDistance = false,
   }) : super(key: key);
 
-  final PractitionersModel data;
+  final MemberDetails data;
   final bool showDistance;
 
   @override
