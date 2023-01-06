@@ -150,8 +150,8 @@ class PractitionersCard extends StatelessWidget {
               ),
             ),
             showDistance
-                ? const IconTextWidget(
-                    title: "7890 Miles",
+                ? IconTextWidget(
+                    title: "${data.state!} ${data.city!}",
                     color: AppColor.grey,
                   )
                 : Scrollbar(

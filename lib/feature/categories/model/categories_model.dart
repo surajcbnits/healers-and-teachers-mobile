@@ -1,3 +1,4 @@
+import '../../../constant/api_path.dart';
 import '../../events/model/events_model.dart';
 import '../../paractitioners/model/pracitioners_model.dart';
 
@@ -47,7 +48,7 @@ class CategoriesDataModel {
   CategoriesDataModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    image = json['image'];
+    image = json['image'] != null ? ApiPath.baseURL + json['image'] : "";
     description = json['description'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];

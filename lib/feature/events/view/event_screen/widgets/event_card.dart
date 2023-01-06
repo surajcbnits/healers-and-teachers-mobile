@@ -75,7 +75,7 @@ class EventCard extends StatelessWidget {
           if (!vertical) showLocation(),
           Text(
             eventDetail.name!.trim(),
-            maxLines: 2,
+            maxLines: vertical ? 1 : 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyleHelper.t18b700(),
           ),
@@ -101,9 +101,9 @@ class EventCard extends StatelessWidget {
                   ),
                 ),
                 child: CircleAvatar(
-                    radius: 40,
-                    backgroundImage: NetworkImage(eventDetail.memberImage!),
-                    ),
+                  radius: 40,
+                  backgroundImage: NetworkImage(eventDetail.memberImage!),
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(

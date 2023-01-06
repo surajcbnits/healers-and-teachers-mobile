@@ -6,6 +6,7 @@ import 'package:healersandteachers/helper/text_style.dart';
 import 'package:provider/provider.dart';
 
 import 'config/routes/routes.dart';
+import 'feature/categories/provider/categories_provider.dart';
 import 'feature/home/view/main_bottom_screen.dart';
 import 'feature/paractitioners/providers/paractitioners_provider.dart';
 import 'feature/services/provider/service_provider.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => PractitionersProvider()),
         ChangeNotifierProvider(create: (context) => EventProvider()),
         ChangeNotifierProvider(create: (context) => ServiceProvider()),
+        ChangeNotifierProvider(create: (context) => CategoriesProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

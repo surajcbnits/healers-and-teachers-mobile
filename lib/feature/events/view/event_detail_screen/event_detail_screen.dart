@@ -102,17 +102,21 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   style: TextStyleHelper.t24b700(),
                 ),
                 const SizedBox(height: 10),
-                Wrap(
-                  spacing: 10,
-                  children: [
-                    ...List.generate(
-                      widget.eventData.wellnessKeywords!.length,
-                      (index) => CustomChip(
-                        title: widget.eventData.wellnessKeywords![index].name!,
+                // NOTE: this is temporary fix bcz in on getting wellness keyword
+                // from category api on eventDetails and memberDetails
+                if (widget.eventData.wellnessKeywords != null)
+                  Wrap(
+                    spacing: 10,
+                    children: [
+                      ...List.generate(
+                        widget.eventData.wellnessKeywords!.length,
+                        (index) => CustomChip(
+                          title:
+                              widget.eventData.wellnessKeywords![index].name!,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
                 const SizedBox(height: 10),
                 // Text(
                 //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Sed consequat eget tellus eget ullamcorper.",

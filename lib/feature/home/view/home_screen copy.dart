@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:healersandteachers/config/routes/routes.dart';
 import 'package:healersandteachers/constant/app_color.dart';
+import 'package:provider/provider.dart';
 
 import '../../../helper/text_over_mage.dart';
 import '../../../helper/text_style.dart';
 import '../../../utils/screen_size.dart';
 import '../../../widgets/circular_profile.dart';
 import '../../categories/model/categories_model.dart';
+import '../../categories/provider/categories_provider.dart';
 import '../domain/model/user_model.dart';
 import 'widgets/categories_list.dart';
 
@@ -18,6 +20,23 @@ class HomeScreen2 extends StatefulWidget {
 }
 
 class _HomeScreen2State extends State<HomeScreen2> {
+  bool isLoading = true;
+  List<CategoriesDataModel> categoryList = [];
+
+  @override
+  void initState() {
+    Provider.of<CategoriesProvider>(context, listen: false)
+        .fetchAllCategoryList()
+        .then((value) {
+      setState(() {
+        categoryList = value;
+      });
+    }).whenComplete(() => setState(() {
+              isLoading = false;
+            }));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -32,7 +51,10 @@ class _HomeScreen2State extends State<HomeScreen2> {
               profileTile(size),
               // const SizedBox(height: 20),
               // locationTile(size),
-              Expanded(child: const CategoriesListWidget2()),
+              Expanded(
+                  child: isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : CategoriesListWidget2(categoryList: categoryList)),
             ],
           ),
         ),
@@ -116,7 +138,9 @@ class _HomeScreen2State extends State<HomeScreen2> {
 class CategoriesListWidget2 extends StatelessWidget {
   const CategoriesListWidget2({
     Key? key,
+    required this.categoryList,
   }) : super(key: key);
+  final List<CategoriesDataModel> categoryList;
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +184,7 @@ class CategoriesListWidget2 extends StatelessWidget {
             ),
             itemCount: categoriesList.length, //> 5 ? 5 : categoriesList.length,
             itemBuilder: (context, index) {
-              final CategoriesModelTemp data = categoriesList[index];
+              final CategoriesDataModel data = categoryList[index];
               return CategoriesCard(data: data);
             },
           ),
@@ -176,7 +200,7 @@ class CategoriesCard extends StatelessWidget {
     required this.data,
   }) : super(key: key);
 
-  final CategoriesModelTemp data;
+  final CategoriesDataModel data;
 
   @override
   Widget build(BuildContext context) {
@@ -194,11 +218,11 @@ class CategoriesCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
-            image: NetworkImage(data.imageUrl),
+            image: NetworkImage(data.image ?? ""),
             fit: BoxFit.cover,
           ),
         ),
-        child: TextOverImage(title: data.name, maxLine: 2),
+        child: TextOverImage(title: data.name!, maxLine: 2),
       ),
     );
   }

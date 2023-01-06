@@ -60,7 +60,7 @@ class RouteGenerator {
         if (settings.arguments != null) {
           return MaterialPageRoute(
               builder: (context) => CategoriesDetailScreen(
-                    categoriesModel: settings.arguments as CategoriesModelTemp,
+                    categoryData: settings.arguments as CategoriesDataModel,
                   ));
         }
         return _errorRoute(errorText: "dataErrorInRoute");

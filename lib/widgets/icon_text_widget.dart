@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healersandteachers/utils/screen_size.dart';
 
 import '../constant/app_color.dart';
 import '../helper/text_style.dart';
@@ -32,9 +33,11 @@ class IconTextWidget extends StatelessWidget {
           size: iconSize,
         ),
         const SizedBox(width: 5),
-        Expanded(
+        SizedBox(
+          // color: Colors.yellow,
+          width: screenWidth(context) * 0.3,
           child: Text(
-            isOnline ? "Online" : title,
+            isOnline ? "Online" : title * 4,
             overflow: TextOverflow.clip,
             maxLines: 1,
             style: isTextThin
