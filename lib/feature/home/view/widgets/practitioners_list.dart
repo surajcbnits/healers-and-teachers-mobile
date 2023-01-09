@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:healersandteachers/constant/api_path.dart';
+import 'package:healersandteachers/utils/toCapitalized.dart';
 import 'package:healersandteachers/widgets/icon_text_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -67,7 +68,7 @@ class _NearByPractitionersWidgetState extends State<NearByPractitionersWidget> {
                 builder: (context, p, child) {
                   return Container(
                     margin: const EdgeInsets.only(bottom: 10),
-                    height: screenWidth(context) * 0.48,
+                    height: screenWidth(context) * 0.45,
                     width: screenWidth(context),
                     // color: Colors.red,
                     child: ListView.builder(
@@ -133,25 +134,24 @@ class PractitionersCard extends StatelessWidget {
           // ),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             OuterCircularProfile(
               radius: screenWidth(context) * 0.22,
               image: NetworkImage(data.image!),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Text(
-                "${data.firstName!.trim()} ${data.lastName!.trim()}",
-                maxLines: 1,
-                style: TextStyleHelper.t18b700(),
-                textAlign: TextAlign.center,
-              ),
+            Text(
+              "${data.firstName!.trim()} ${data.lastName!.trim()}",
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyleHelper.t16b700(),
+              textAlign: TextAlign.center,
             ),
             showDistance
                 ? IconTextWidget(
-                    title: "${data.state!} ${data.city!}",
+                    title:
+                        "${data.city!.toCapitalize()}, ${data.state!.toCapitalize()}",
                     color: AppColor.grey,
                   )
                 : Scrollbar(

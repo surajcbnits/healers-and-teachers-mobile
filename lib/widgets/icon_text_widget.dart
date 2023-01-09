@@ -33,11 +33,9 @@ class IconTextWidget extends StatelessWidget {
           size: iconSize,
         ),
         const SizedBox(width: 5),
-        SizedBox(
-          // color: Colors.yellow,
-          width: screenWidth(context) * 0.3,
+        Flexible(
           child: Text(
-            isOnline ? "Online" : title * 4,
+            isOnline ? "Online" : title,
             overflow: TextOverflow.clip,
             maxLines: 1,
             style: isTextThin

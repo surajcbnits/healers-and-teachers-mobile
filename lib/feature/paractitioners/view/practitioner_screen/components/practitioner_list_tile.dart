@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healersandteachers/utils/toCapitalized.dart';
 
 import '../../../../../constant/app_color.dart';
 import '../../../../../helper/text_style.dart';
@@ -82,7 +83,7 @@ class _PractitionerListCardState extends State<PractitionerListCard> {
               IconTextWidget(
                 isOnline: false,
                 title:
-                    "${widget.data.city!}, ${widget.data.country!.toUpperCase()}",
+                    "${widget.data.city!.toCapitalize()}, ${widget.data.state!.toCapitalize()}",
                 color: AppColor.grey,
               ),
             ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healersandteachers/utils/toCapitalized.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../config/routes/routes.dart';
@@ -67,19 +68,19 @@ class EventCard extends StatelessWidget {
 
   Widget _buildDetail(BuildContext context) {
     return SizedBox(
-      height: screenHeight(context) * (vertical ? 0.1 : 0.14),
+      height: screenHeight(context) * (vertical ? 0.12 : 0.14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (!vertical) showLocation(),
           Text(
             eventDetail.name!.trim(),
-            maxLines: vertical ? 1 : 2,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyleHelper.t18b700(),
+            style: TextStyleHelper.t16b700(),
           ),
           // SizedBox(height: 5),
+          if (!vertical) showLocation(),
           Text(
             "Event By",
             style: TextStyleHelper.t12b600().copyWith(
@@ -126,7 +127,8 @@ class EventCard extends StatelessWidget {
 
   IconTextWidget showLocation() {
     return IconTextWidget(
-        title: "${eventDetail.city!}, ${eventDetail.state!}",
+        title:
+            "${eventDetail.city!.toCapitalize()}, ${eventDetail.state!.toCapitalize()}",
         isOnline: eventDetail.type == "virtual");
   }
 

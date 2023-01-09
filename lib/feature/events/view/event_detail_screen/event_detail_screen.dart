@@ -50,10 +50,10 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
         width: double.infinity,
         decoration: const BoxDecoration(
           color: AppColor.darkBlue,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
+          // borderRadius: BorderRadius.only(
+          //   topLeft: Radius.circular(20),
+          //   topRight: Radius.circular(20),
+          // ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -64,7 +64,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                 const Spacer(),
                 ElevatedButton.icon(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.bookingScreen);
+                    // Navigator.pushNamed(context, Routes.bookingScreen);
                   },
                   icon: const Icon(Icons.star_rounded),
                   label: Text(

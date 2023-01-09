@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healersandteachers/feature/paractitioners/providers/paractitioners_provider.dart';
 import 'package:healersandteachers/feature/services/model/services_model.dart';
 import 'package:healersandteachers/feature/services/provider/service_provider.dart';
+import 'package:healersandteachers/utils/toCapitalized.dart';
 
 import 'package:provider/provider.dart';
 
@@ -38,17 +39,18 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
 
   @override
   void initState() {
+    memberData = widget.practitionerData;
     _getData();
     super.initState();
   }
 
   _getData() {
     /// Get user Data
-    Provider.of<PractitionersProvider>(context, listen: false)
-        .fetchPractitioners(widget.practitionerData.username!)
-        .then((value) {
-      setState(() => memberData = value!);
-    }).whenComplete(() => setState(() => isLoading = false));
+    // Provider.of<PractitionersProvider>(context, listen: false)
+    //     .fetchPractitioners(widget.practitionerData.username!)
+    //     .then((value) {
+    //   setState(() => memberData = value!);
+    // }).whenComplete(() => setState(() => isLoading = false));
 
     /// Get Event Data
     Provider.of<EventProvider>(context, listen: false)
@@ -69,172 +71,171 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : SingleChildScrollView(
+        child:
+            //  isLoading
+            //     ? const Center(
+            //         child: CircularProgressIndicator(),
+            //       )
+            //     :
+            SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                width: screenWidth(context),
+                height: screenWidth(context) * 0.7,
+                padding: const EdgeInsets.only(left: 10, top: 10),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  image: DecorationImage(
+                    image: NetworkImage(memberData.image!),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.4),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back_ios_new),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      alignment: Alignment.topLeft,
-                      width: screenWidth(context),
-                      height: screenWidth(context) * 0.7,
-                      padding: const EdgeInsets.only(left: 10, top: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        image: DecorationImage(
-                          image: NetworkImage(memberData.image!),
-                          fit: BoxFit.cover,
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "${memberData.firstName!} ${memberData.lastName!}",
+                            style: TextStyleHelper.t18b700(),
+                          ),
                         ),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.4),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.arrow_back_ios_new),
-                        ),
+                        OutlinedButton.icon(
+                            onPressed: () {},
+                            icon: const Icon(Icons.add),
+                            label: const Text("Follow")),
+                      ],
+                    ),
+                    Text(
+                      memberData.title!,
+                      style: TextStyleHelper.t14b600().copyWith(
+                        color: AppColor.grey,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    if (memberData.wellnessKeywords != null)
+                      Wrap(
+                        spacing: 10,
                         children: [
-                          const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  "${memberData.firstName!} ${memberData.lastName!}",
-                                  style: TextStyleHelper.t18b700(),
-                                ),
-                              ),
-                              OutlinedButton.icon(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.add),
-                                  label: const Text("Follow")),
-                            ],
-                          ),
-                          Text(
-                            memberData.title!,
-                            style: TextStyleHelper.t14b600().copyWith(
-                              color: AppColor.grey,
+                          ...List.generate(
+                            memberData.wellnessKeywords!.length,
+                            (index) => Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 2.5),
+                              child: CustomChip(
+                                  title: memberData
+                                      .wellnessKeywords![index].name!),
                             ),
-                          ),
-                          // if (!isLoading)
-                          Wrap(
-                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            spacing: 10,
-                            children: [
-                              ...List.generate(
-                                memberData.wellnessKeywords!.length,
-                                (index) => Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 2.5),
-                                  child: CustomChip(
-                                      title: memberData
-                                          .wellnessKeywords![index].name!),
-                                ),
-                              ),
-                            ],
-                          ),
-                          // const SizedBox(height: 10),
-                          IconTextWidget(
-                            title: "${memberData.city!}, ${memberData.state!}",
-                            isOnline: false,
-                            color: AppColor.grey,
-                          ),
-                          titleText("About"),
-                          Text(
-                            memberData.aboutme!,
-                            style: TextStyleHelper.t14b400()
-                                .copyWith(color: AppColor.grey, height: 1.4),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: InkWell(
-                              onTap: () {
-                                contactBottomSheet(context, memberData);
-                              },
-                              child: Row(
-                                // mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Contact ${memberData.firstName}",
-                                    style: TextStyleHelper.t18b700().copyWith(
-                                      color: AppColor.primaryColor,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  const Icon(Icons.arrow_forward_rounded,
-                                      color: AppColor.primaryColor),
-                                ],
-                              ),
-                            ),
-                          ),
-                          titleText("Services"),
-                          if (isServiceLoading)
-                            const Center(child: CircularProgressIndicator())
-                          else
-                            ListView.separated(
-                              shrinkWrap: true,
-                              padding: const EdgeInsets.only(top: 10),
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return ServicesTile(
-                                    serviceData:
-                                        serviceData.serviceDataList![index]);
-                              },
-                              separatorBuilder: (context, index) {
-                                return const Divider(
-                                  height: 30,
-                                  thickness: 1,
-                                );
-                              },
-                              itemCount: serviceData.serviceDataList!.length,
-                            ),
-                          if (memberData.qualification != "undefined") ...[
-                            titleText("Training & Credentials"),
-                            Text(
-                              memberData.qualification!,
-                              style: TextStyleHelper.t14b400()
-                                  .copyWith(color: AppColor.grey, height: 1.4),
-                            ),
-                          ],
-                          titleText("Events"),
-                          if (isEventLoading)
-                            const Center(child: CircularProgressIndicator())
-                          else
-                            ...List.generate(
-                              eventList.length,
-                              (index) =>
-                                  EventCard(eventDetail: eventList[index]),
-                            ),
-
-                          // EventCard(eventData: eventsList[0]),
-                          titleText("Reviews"),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            padding: const EdgeInsets.only(top: 10),
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return const ReviewTile();
-                            },
-                            itemCount: 3,
                           ),
                         ],
                       ),
+                    IconTextWidget(
+                      title:
+                          "${memberData.city!.toCapitalize()}, ${memberData.state!.toCapitalize()}",
+                      isOnline: false,
+                      color: AppColor.grey,
+                    ),
+                    titleText("About"),
+                    Text(
+                      memberData.aboutme!,
+                      style: TextStyleHelper.t14b400()
+                          .copyWith(color: AppColor.grey, height: 1.4),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: InkWell(
+                        onTap: () {
+                          contactBottomSheet(context, memberData);
+                        },
+                        child: Row(
+                          // mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Contact ${memberData.firstName}",
+                              style: TextStyleHelper.t18b700().copyWith(
+                                color: AppColor.primaryColor,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            const Icon(Icons.arrow_forward_rounded,
+                                color: AppColor.primaryColor),
+                          ],
+                        ),
+                      ),
+                    ),
+                    titleText("Services"),
+                    if (isServiceLoading)
+                      const Center(child: CircularProgressIndicator())
+                    else
+                      ListView.separated(
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.only(top: 10),
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return ServicesTile(
+                              serviceData: serviceData.serviceDataList![index]);
+                        },
+                        separatorBuilder: (context, index) {
+                          return const Divider(
+                            height: 30,
+                            thickness: 1,
+                          );
+                        },
+                        itemCount: serviceData.serviceDataList!.length,
+                      ),
+                    if (memberData.qualification != "undefined") ...[
+                      titleText("Training & Credentials"),
+                      Text(
+                        memberData.qualification!,
+                        style: TextStyleHelper.t14b400()
+                            .copyWith(color: AppColor.grey, height: 1.4),
+                      ),
+                    ],
+                    titleText("Events"),
+                    if (isEventLoading)
+                      const Center(child: CircularProgressIndicator())
+                    else
+                      ...List.generate(
+                        eventList.length,
+                        (index) => EventCard(eventDetail: eventList[index]),
+                      ),
+
+                    // EventCard(eventData: eventsList[0]),
+                    titleText("Reviews"),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.only(top: 10),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return const ReviewTile();
+                      },
+                      itemCount: 3,
                     ),
                   ],
                 ),
               ),
+            ],
+          ),
+        ),
       ),
     );
   }

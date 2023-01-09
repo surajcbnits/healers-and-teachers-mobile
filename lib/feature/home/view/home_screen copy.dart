@@ -43,21 +43,10 @@ class _HomeScreen2State extends State<HomeScreen2> {
     print("size.width, size.height: ${size.width * .4}, ${size.height * 0.13}");
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              profileTile(size),
-              // const SizedBox(height: 20),
-              // locationTile(size),
-              Expanded(
-                  child: isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : CategoriesListWidget2(categoryList: categoryList)),
-            ],
-          ),
-        ),
+        child: Expanded(
+            child: isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : CategoriesListWidget2(categoryList: categoryList)),
       ),
     );
   }
@@ -74,21 +63,6 @@ class _HomeScreen2State extends State<HomeScreen2> {
               style: TextStyleHelper.t24b700(),
             ),
             const SizedBox(height: 8),
-            // Row(
-            //   crossAxisAlignment: CrossAxisAlignment.center,
-            //   children: [
-            //     Text(
-            //       "Good Morning",
-            //       style: TextStyleHelper.t18b400(),
-            //     ),
-            //     const SizedBox(width: 4),
-            //     const Text(
-            //       "👋",
-            //       style: TextStyle(fontSize: 30),
-            //     ),
-            //     // Icon(AppIcon.handWave),
-            //   ],
-            // ),
             InkWell(
               onTap: () {
                 Navigator.pushNamed(context, Routes.changeLocationScreen);
@@ -149,33 +123,17 @@ class CategoriesListWidget2 extends StatelessWidget {
       children: [
         // const SizedBox(height: 10),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Wellness Resources",
-                style: TextStyleHelper.t20b700(),
-              ),
-              // TextButton(
-              //   onPressed: () {
-              //     Navigator.pushNamed(context, Routes.categoriesScreen);
-              //   },
-              //   child: Text(
-              //     "View all",
-              //     style: TextStyleHelper.t14b700().copyWith(
-              //       color: AppColor.primaryColor,
-              //     ),
-              //   ),
-              // ),
-            ],
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+          child: Text(
+            "Wellness Resources",
+            style: TextStyleHelper.t20b700(),
           ),
         ),
         Expanded(
           // margin: const EdgeInsets.only(bottom: 10),
           // width: screenWidth(context),
           child: GridView.builder(
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.symmetric(horizontal: 16),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: 0.8,
