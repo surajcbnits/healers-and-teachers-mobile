@@ -61,6 +61,15 @@ class MyApp extends StatelessWidget {
         titleTextStyle: TextStyleHelper.t24b700(),
         centerTitle: true,
       ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppColor.white,
+          backgroundColor: AppColor.darkBlue,
+          // shape: RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.circular(10),
+          // ),
+        ),
+      ),
     );
   }
 }

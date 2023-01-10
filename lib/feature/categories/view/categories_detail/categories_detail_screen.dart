@@ -80,15 +80,23 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
             children: [
               Container(
                 width: double.infinity,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
                 height: screenWidth(context) * 0.4,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: AppColor.primaryColor,
+                  // color: AppColor.primaryColor,
                   borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image:
-                        // NetworkImage(imageList[index % imageList.length]),
-                        NetworkImage(widget.categoryData.image!),
+                  // image: DecorationImage(
+                  //   image:
+                  //       // NetworkImage(imageList[index % imageList.length]),
+                  //       NetworkImage(widget.categoryData.image!),
+                  //   fit: BoxFit.cover,
+                  // ),
+                ),
+                child: Hero(
+                  tag: widget.categoryData.image!,
+                  child: Image.network(
+                    widget.categoryData.image!,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -208,13 +216,15 @@ class _CategoriesDetailScreenState extends State<CategoriesDetailScreen> {
                   Container(
                     // color: Colors.yellow,
                     child: GridView(
-                      padding: EdgeInsets.zero,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 16),
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        childAspectRatio: 1.1,
+                        childAspectRatio: 1.2,
+                        mainAxisSpacing: 16,
                       ),
                       children: [
                         ...List.generate(

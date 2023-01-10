@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../../../config/routes/routes.dart';
 import '../../../../constant/app_color.dart';
 import '../../../../helper/text_style.dart';
+import '../../../../utils/location.dart';
 import '../../../../utils/screen_size.dart';
 import '../../../../widgets/chip.dart';
 import '../../../../widgets/circular_profile.dart';
@@ -150,8 +151,11 @@ class PractitionersCard extends StatelessWidget {
             ),
             showDistance
                 ? IconTextWidget(
-                    title:
-                        "${data.city!.toCapitalize()}, ${data.state!.toCapitalize()}",
+                    title: locationString(
+                      city: data.city!,
+                      state: data.state!,
+                      country: data.country!,
+                    ),
                     color: AppColor.grey,
                   )
                 : Scrollbar(

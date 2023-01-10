@@ -43,68 +43,10 @@ class _HomeScreen2State extends State<HomeScreen2> {
     print("size.width, size.height: ${size.width * .4}, ${size.height * 0.13}");
     return Scaffold(
       body: SafeArea(
-        child: Expanded(
-            child: isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : CategoriesListWidget2(categoryList: categoryList)),
+        child: isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : CategoriesListWidget2(categoryList: categoryList),
       ),
-    );
-  }
-
-  Row profileTile(Size size) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Hi ${user.name},",
-              style: TextStyleHelper.t24b700(),
-            ),
-            const SizedBox(height: 8),
-            InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, Routes.changeLocationScreen);
-              },
-              child: Container(
-                // width: screenWidth(context),
-                // height: size.width * 0.11,
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: AppColor.primaryColor.withOpacity(.12),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on,
-                      color: AppColor.primaryColor,
-                      // size: 30,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      "San Francisco, California",
-                      style: TextStyleHelper.t14b600(),
-                    ),
-                    const SizedBox(width: 4),
-                    const Icon(
-                      Icons.edit,
-                      color: AppColor.darkBlue,
-                      size: 20,
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
-        CircularProfile(
-          image: NetworkImage(user.profileImage),
-          backgroundColor: AppColor.secondaryColor.withOpacity(0.5),
-          radius: 35,
-        ),
-      ],
     );
   }
 }
@@ -133,21 +75,68 @@ class CategoriesListWidget2 extends StatelessWidget {
           // margin: const EdgeInsets.only(bottom: 10),
           // width: screenWidth(context),
           child: GridView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 0.8,
+              childAspectRatio: 1,
               crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
+              mainAxisSpacing: 16 * 2,
             ),
             itemCount: categoriesList.length, //> 5 ? 5 : categoriesList.length,
             itemBuilder: (context, index) {
               final CategoriesDataModel data = categoryList[index];
-              return CategoriesCard(data: data);
+              return CategoriesCircularCard(data: data);
             },
           ),
         ),
       ],
+    );
+  }
+}
+
+class CategoriesCircularCard extends StatelessWidget {
+  const CategoriesCircularCard({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  final CategoriesDataModel data;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, Routes.categoriesDetailScreen,
+            arguments: data);
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            width: screenWidth(context) * 0.36,
+            height: screenWidth(context) * 0.36,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              // image: DecorationImage(
+              //   image: NetworkImage(data.image ?? ""),
+              //   fit: BoxFit.cover,
+              // ),
+            ),
+            child: Hero(
+              tag: data.image!,
+              child: Image.network(
+                data.image!,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Text(
+            data.name!,
+            style: TextStyleHelper.t18b700(),
+          )
+        ],
+      ),
     );
   }
 }

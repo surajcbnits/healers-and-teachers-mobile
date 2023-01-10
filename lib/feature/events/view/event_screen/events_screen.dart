@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../constant/app_color.dart';
 import '../../../../helper/text_style.dart';
+import '../../../../widgets/button.dart';
 import '../../../../widgets/chip.dart';
 import '../../../../widgets/location_tile.dart';
 import '../../Provider/events_provider.dart';
@@ -132,22 +133,9 @@ class _EventScreenState extends State<EventScreen> {
                                     //   onDeleted: () {},
                                     //   backgroundColor: AppColor.primaryColor,
                                     // ),
-                                    OutlinedButton.icon(
-                                        onPressed: () {},
-                                        style: OutlinedButton.styleFrom(
-                                          // primary: AppColor.primaryColor,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          side: const BorderSide(
-                                              color: AppColor.primaryColor),
-                                        ),
-                                        icon: const Icon(Icons.filter_list),
-                                        label: Text("Filter",
-                                            style: TextStyleHelper.t16b600()
-                                                .copyWith(
-                                              color: AppColor.primaryColor,
-                                            ))),
+                                    FilterButton(
+                                      onTap: () {},
+                                    ),
                                   ],
                                 ),
                               ),

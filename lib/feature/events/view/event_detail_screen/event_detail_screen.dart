@@ -48,7 +48,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
         padding: EdgeInsetsDirectional.fromSTEB(
             16, 16, 16, mediaQuerySize(context).padding.bottom + 10),
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColor.darkBlue,
           // borderRadius: BorderRadius.only(
           //   topLeft: Radius.circular(20),

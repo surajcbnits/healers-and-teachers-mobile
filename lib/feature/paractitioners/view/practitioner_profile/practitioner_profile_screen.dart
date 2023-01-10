@@ -3,12 +3,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healersandteachers/feature/paractitioners/providers/paractitioners_provider.dart';
 import 'package:healersandteachers/feature/services/model/services_model.dart';
 import 'package:healersandteachers/feature/services/provider/service_provider.dart';
+import 'package:healersandteachers/utils/text_data_check.dart';
 import 'package:healersandteachers/utils/toCapitalized.dart';
 
 import 'package:provider/provider.dart';
 
 import '../../../../constant/app_color.dart';
 import '../../../../helper/text_style.dart';
+import '../../../../utils/location.dart';
 import '../../../../utils/screen_size.dart';
 import '../../../../widgets/chip.dart';
 import '../../../../widgets/icon_text_widget.dart';
@@ -148,8 +150,11 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
                         ],
                       ),
                     IconTextWidget(
-                      title:
-                          "${memberData.city!.toCapitalize()}, ${memberData.state!.toCapitalize()}",
+                      title: locationString(
+                        city: memberData.city!,
+                        state: memberData.state!,
+                        country: memberData.country!,
+                      ),
                       isOnline: false,
                       color: AppColor.grey,
                     ),
@@ -261,23 +266,25 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
                   "Contact Me",
                   style: TextStyleHelper.t24b700(),
                 ),
-                Flexible(
-                  child: ListTile(
-                    // contentPadding: EdgeInsets.zero,
-                    // horizontalTitleGap: 0,
-                    leading: const Icon(Icons.phone),
-                    title: Text("+${memberData.phoneno!}"),
-                    onTap: () {},
+                if (CheckData.isNotNull(memberData.phoneno!))
+                  Flexible(
+                    child: ListTile(
+                      // contentPadding: EdgeInsets.zero,
+                      // horizontalTitleGap: 0,
+                      leading: const Icon(Icons.phone),
+                      title: Text(memberData.phoneno!),
+                      onTap: () {},
+                    ),
                   ),
-                ),
-                Flexible(
-                  child: ListTile(
-                    leading: const Icon(Icons.mail),
-                    title: Text(memberData.email!),
-                    onTap: () {},
+                if (CheckData.isNotNull(memberData.email!))
+                  Flexible(
+                    child: ListTile(
+                      leading: const Icon(Icons.mail),
+                      title: Text(memberData.email!),
+                      onTap: () {},
+                    ),
                   ),
-                ),
-                if (memberData.physicaladdress != "undefined")
+                if (CheckData.isNotNull(memberData.physicaladdress!))
                   ListTile(
                     leading: const Icon(Icons.location_city),
                     title: Text(memberData.physicaladdress!),
@@ -286,22 +293,27 @@ class _PractitionerProfileScreenState extends State<PractitionerProfileScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const FaIcon(FontAwesomeIcons.facebookF),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const FaIcon(FontAwesomeIcons.twitter),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const FaIcon(FontAwesomeIcons.instagram),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const FaIcon(FontAwesomeIcons.linkedin),
-                    ),
+                    if (CheckData.isNotNull(memberData.facebook!))
+                      IconButton(
+                        onPressed: () {},
+                        icon: const FaIcon(FontAwesomeIcons.facebookF),
+                      ),
+                    if (CheckData.isNotNull(memberData.twitter!))
+                      IconButton(
+                        onPressed: () {},
+                        icon: const FaIcon(FontAwesomeIcons.twitter),
+                      ),
+                    if (CheckData.isNotNull(memberData.instagram!))
+                      IconButton(
+                        onPressed: () {},
+                        icon: const FaIcon(FontAwesomeIcons.instagram),
+                      ),
+                    //  if (memberData.lin != "undefined" &&
+                    //     memberData.lin!.isNotEmpty)
+                    // IconButton(
+                    //   onPressed: () {},
+                    //   icon: const FaIcon(FontAwesomeIcons.linkedin),
+                    // ),
                   ],
                 ),
               ],

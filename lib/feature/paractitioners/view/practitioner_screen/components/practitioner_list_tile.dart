@@ -3,6 +3,7 @@ import 'package:healersandteachers/utils/toCapitalized.dart';
 
 import '../../../../../constant/app_color.dart';
 import '../../../../../helper/text_style.dart';
+import '../../../../../utils/location.dart';
 import '../../../../../widgets/chip.dart';
 import '../../../../../widgets/icon_text_widget.dart';
 import '../../../model/pracitioners_model.dart';
@@ -82,8 +83,11 @@ class _PractitionerListCardState extends State<PractitionerListCard> {
               // ),
               IconTextWidget(
                 isOnline: false,
-                title:
-                    "${widget.data.city!.toCapitalize()}, ${widget.data.state!.toCapitalize()}",
+                title: locationString(
+                  city: widget.data.city!,
+                  state: widget.data.state!,
+                  country: widget.data.country!,
+                ),
                 color: AppColor.grey,
               ),
             ],
